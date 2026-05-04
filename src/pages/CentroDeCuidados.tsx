@@ -22,7 +22,7 @@ export default function CentroDeCuidados() {
   return (
     <Layout>
       {/* Header */}
-      <section className="bg-navy text-white py-20">
+      <section className="bg-navy text-white pt-40 pb-20">
         <div className="container-x">
           <span className="eyebrow !text-sage-light">Área do paciente</span>
           <h1 className="mt-5 font-display text-5xl md:text-6xl">Centro de <em className="italic font-light text-sage-light">Cuidados</em></h1>
