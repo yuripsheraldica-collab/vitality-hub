@@ -33,7 +33,9 @@ export default function SiteNav() {
           <img
             src={logo}
             alt="Instituto Evolução"
-            className={`w-auto transition-all duration-500 ${scrolled ? "h-9" : "h-11"}`}
+            className={`w-auto transition-all duration-500 ${
+              scrolled ? "h-9 mix-blend-multiply" : "h-11 brightness-0 invert"
+            }`}
           />
         </Link>
         <nav className="hidden lg:flex items-center gap-5 xl:gap-7">
