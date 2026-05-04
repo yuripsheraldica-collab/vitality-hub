@@ -45,7 +45,11 @@ export default function SiteNav() {
               to={l.to}
               className={({ isActive }) =>
                 `text-[10px] font-medium tracking-[0.18em] uppercase whitespace-nowrap transition-colors ${
-                  isActive ? "text-sage" : scrolled ? "text-muted-foreground hover:text-navy" : "text-navy/70 hover:text-navy"
+                  isActive
+                    ? "text-sage"
+                    : scrolled
+                      ? "text-muted-foreground hover:text-navy"
+                      : "text-white/75 hover:text-white"
                 }`
               }
             >
