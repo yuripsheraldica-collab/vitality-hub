@@ -14,7 +14,7 @@ export default function Index() {
   return (
     <Layout>
       {/* HERO */}
-      <section className="relative min-h-[92vh] -mt-20 pt-20 bg-navy text-white flex items-center overflow-hidden">
+      <section className="relative min-h-[92vh] bg-navy text-white flex items-center overflow-hidden">
         <div className="absolute inset-0">
           <img src={fachada} alt="" className="w-full h-full object-cover opacity-30" />
           <div className="absolute inset-0 bg-gradient-to-r from-navy via-navy/85 to-navy/40" />

@@ -4,13 +4,12 @@ import { Menu, X } from "lucide-react";
 import logo from "@/assets/logo.png";
 
 const links = [
-  { to: "/instituto", label: "O Instituto" },
+  { to: "/instituto", label: "Instituto" },
   { to: "/equipe", label: "Equipe" },
   { to: "/especialidades", label: "Especialidades" },
   { to: "/resultados", label: "Resultados" },
   { to: "/academico", label: "Acadêmico" },
   { to: "/news", label: "News" },
-  { to: "/centro-de-cuidados", label: "Centro de Cuidados" },
 ];
 
 export default function SiteNav() {
@@ -29,18 +28,28 @@ export default function SiteNav() {
         scrolled ? "bg-cream/95 backdrop-blur border-b border-border py-3" : "py-5"
       }`}
     >
-      <div className="container-x flex items-center justify-between">
-        <Link to="/" className="flex items-center gap-3">
-          <img src={logo} alt="Instituto Evolução" className="h-10 w-auto mix-blend-multiply" />
+      <div className="container-x flex items-center justify-between gap-6">
+        <Link to="/" className="flex items-center shrink-0" aria-label="Instituto Evolução">
+          <img
+            src={logo}
+            alt="Instituto Evolução"
+            className={`w-auto transition-all duration-500 ${
+              scrolled ? "h-9 mix-blend-multiply" : "h-11 brightness-0 invert"
+            }`}
+          />
         </Link>
-        <nav className="hidden lg:flex items-center gap-7">
+        <nav className="hidden lg:flex items-center gap-5 xl:gap-7">
           {links.map((l) => (
             <NavLink
               key={l.to}
               to={l.to}
               className={({ isActive }) =>
-                `text-[10px] font-medium tracking-[0.18em] uppercase transition-colors ${
-                  isActive ? "text-sage" : scrolled ? "text-muted-foreground hover:text-navy" : "text-navy/70 hover:text-navy"
+                `text-[10px] font-medium tracking-[0.18em] uppercase whitespace-nowrap transition-colors ${
+                  isActive
+                    ? "text-sage"
+                    : scrolled
+                      ? "text-muted-foreground hover:text-navy"
+                      : "text-white/75 hover:text-white"
                 }`
               }
             >
@@ -49,7 +58,7 @@ export default function SiteNav() {
           ))}
           <Link
             to="/centro-de-cuidados"
-            className="text-[10px] font-semibold tracking-[0.2em] uppercase px-5 py-2.5 bg-navy text-white hover:bg-sage transition-colors"
+            className="text-[10px] font-semibold tracking-[0.18em] uppercase whitespace-nowrap px-4 py-2.5 bg-navy text-white hover:bg-sage transition-colors"
           >
             Área do Paciente
           </Link>
