@@ -1,4 +1,6 @@
-export default function PageHero({ eyebrow, title, subtitle }: { eyebrow: string; title: React.ReactNode; subtitle?: string }) {
+import { ReactNode } from "react";
+
+export default function PageHero({ eyebrow, title, subtitle }: { eyebrow: string; title: ReactNode; subtitle?: string }) {
   return (
     <section className="bg-navy text-white py-28 md:py-36 relative overflow-hidden">
       <div className="absolute inset-0 opacity-[0.05]" style={{
