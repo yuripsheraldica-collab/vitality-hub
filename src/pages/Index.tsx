@@ -1,9 +1,9 @@
 import Layout from "@/components/site/Layout";
 import { Link } from "react-router-dom";
 import {
-  Stethoscope, Activity, FlaskConical, Dumbbell, Sparkles, Heart,
+  Activity, Dumbbell, Sparkles, Heart,
   Ear, Award, Link2, Hourglass, Building2, Target, ArrowRight, Phone, Calendar,
-  ClipboardList, Users, ShieldPlus, HeartPulse, Baby, Apple, Brain, Scan
+  ClipboardList, Users, ShieldPlus, HeartPulse, Baby, Apple, Scan
 } from "lucide-react";
 import academia1 from "@/assets/academia-1.jpg";
 import academia2 from "@/assets/academia-2.jpg";
