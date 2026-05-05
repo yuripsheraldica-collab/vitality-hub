@@ -1,8 +1,10 @@
 import Layout from "@/components/site/Layout";
 import { useState } from "react";
+import { CALENDLY_LINK, WHATSAPP_LINK } from "@/lib/contact";
 import {
   Calendar, TrendingUp, Dumbbell, MessageSquare, CreditCard, FileText, Bell,
-  Clock, CheckCircle2, PlayCircle, Download, AlertCircle, ArrowRight
+  Clock, CheckCircle2, PlayCircle, Download, AlertCircle, ArrowRight, Bot, Send,
+  Upload, Search, Smartphone
 } from "lucide-react";
 
 type TabId = "agenda" | "evolucao" | "exercicios" | "comunicacao" | "financeiro" | "documentos" | "notificacoes";
@@ -87,6 +89,16 @@ function Agenda() {
   return (
     <div>
       <SectionTitle icon={Calendar} title="Agenda e consultas" subtitle="Próximas sessões, histórico e remarcação online." />
+      <a href={CALENDLY_LINK} target="_blank" rel="noopener" className="block bg-navy text-white p-6 mb-8 hover:bg-sage transition-colors">
+        <div className="flex items-center justify-between gap-4 flex-wrap">
+          <div>
+            <div className="text-[10px] tracking-[0.25em] uppercase text-sage-light">Agendamento online</div>
+            <h3 className="font-display text-2xl mt-1">Agendar nova consulta</h3>
+            <p className="text-sm text-white/65 mt-1">Escolha a especialidade e o melhor horário em poucos cliques.</p>
+          </div>
+          <span className="inline-flex items-center gap-2 text-[11px] tracking-[0.25em] uppercase border border-white/30 px-5 py-3">Agendar agora <ArrowRight className="w-3.5 h-3.5" /></span>
+        </div>
+      </a>
       <h3 className="text-xs tracking-[0.2em] uppercase text-sage mb-4">Próximas sessões</h3>
       <div className="space-y-3">
         {[
@@ -100,7 +112,7 @@ function Agenda() {
               <p className="text-xs text-muted-foreground mt-1 flex items-center gap-1.5"><Clock className="w-3 h-3" />{w}</p>
             </div>
             <div className="flex gap-2">
-              <button className="text-[10px] tracking-[0.2em] uppercase text-sage border border-sage/30 px-3 py-2 hover:bg-sage hover:text-white transition-colors">Remarcar</button>
+              <a href={CALENDLY_LINK} target="_blank" rel="noopener" className="text-[10px] tracking-[0.2em] uppercase text-sage border border-sage/30 px-3 py-2 hover:bg-sage hover:text-white transition-colors">Remarcar</a>
               <button className="text-[10px] tracking-[0.2em] uppercase text-muted-foreground border border-border px-3 py-2">Detalhes</button>
             </div>
           </div>
@@ -141,45 +153,109 @@ function Evolucao() {
 }
 
 function Exercicios() {
+  const exercicios = [
+    { nome: "Mobilidade lombar", freq: "Diário", series: "3 séries × 12 repetições · 30s descanso", youtubeId: "" },
+    { nome: "Fortalecimento de glúteos", freq: "3x/semana", series: "4 séries × 10 repetições · 45s descanso", youtubeId: "" },
+    { nome: "Estabilidade de core", freq: "Diário", series: "3 séries × 30s isometria", youtubeId: "" },
+    { nome: "Liberação miofascial", freq: "Diário", series: "2 séries × 60s por região", youtubeId: "" },
+  ];
   return (
     <div>
       <SectionTitle icon={Dumbbell} title="Plano de exercícios" subtitle="Prescrições atualizadas com vídeos demonstrativos e frequência recomendada." />
       <div className="grid md:grid-cols-2 gap-5">
-        {["Mobilidade lombar", "Fortalecimento de glúteos", "Estabilidade de core", "Liberação miofascial"].map((e,i) => (
-          <div key={e} className="border border-border overflow-hidden">
-            <div className="aspect-video bg-navy relative flex items-center justify-center">
-              <PlayCircle className="w-12 h-12 text-white/70" />
-              <span className="absolute top-3 left-3 text-[10px] tracking-[0.2em] uppercase bg-sage/90 text-white px-2 py-1">{i % 2 === 0 ? "Diário" : "3x/semana"}</span>
+        {exercicios.map(e => (
+          <div key={e.nome} className="border border-border overflow-hidden bg-white">
+            <div className="aspect-video bg-navy relative">
+              {e.youtubeId ? (
+                <iframe src={`https://www.youtube.com/embed/${e.youtubeId}`} title={e.nome} className="w-full h-full" allowFullScreen />
+              ) : (
+                <div className="w-full h-full flex flex-col items-center justify-center text-white/60 gap-2">
+                  <PlayCircle className="w-12 h-12" strokeWidth={1} />
+                  <span className="text-[10px] tracking-[0.25em] uppercase">Vídeo em breve</span>
+                </div>
+              )}
+              <span className="absolute top-3 left-3 text-[10px] tracking-[0.2em] uppercase bg-sage/90 text-white px-2 py-1">{e.freq}</span>
             </div>
             <div className="p-5">
-              <h4 className="font-medium text-navy">{e}</h4>
-              <p className="text-xs text-muted-foreground mt-1">3 séries × 12 repetições · 30s descanso</p>
+              <h4 className="font-medium text-navy">{e.nome}</h4>
+              <p className="text-xs text-muted-foreground mt-1">{e.series}</p>
             </div>
           </div>
         ))}
       </div>
+      <p className="mt-6 text-xs text-muted-foreground">Os vídeos demonstrativos são gravados pela equipe técnica do Instituto e atualizados periodicamente.</p>
     </div>
   );
 }
 
 function Comunicacao() {
+  const [messages, setMessages] = useState<{ from: "user" | "bot"; text: string }[]>([
+    { from: "bot", text: "Olá! Sou o assistente do Instituto Evolução. Posso te ajudar com dúvidas sobre exercícios, frequência, dor pós-treino e cuidados gerais. Em que posso ajudar?" },
+  ]);
+  const [draft, setDraft] = useState("");
+  function send() {
+    const t = draft.trim();
+    if (!t) return;
+    const reply = botReply(t);
+    setMessages(m => [...m, { from: "user", text: t }, { from: "bot", text: reply }]);
+    setDraft("");
+  }
   return (
     <div>
       <SectionTitle icon={MessageSquare} title="Comunicação direta" subtitle="Chat com a clínica, dúvidas pós-consulta e abertura de chamados." />
-      <div className="border border-border h-[400px] flex flex-col">
-        <div className="flex-1 p-6 space-y-4 overflow-auto bg-cream/40">
-          <div className="bg-white p-4 max-w-md text-sm border border-border">Olá! Como você está se sentindo desde a última sessão?</div>
-          <div className="bg-sage/15 p-4 max-w-md text-sm ml-auto">Estou melhor, mas senti um leve incômodo no exercício 02.</div>
-          <div className="bg-white p-4 max-w-md text-sm border border-border">Entendi. Vou ajustar a carga para a próxima sessão. Obrigada por avisar.</div>
+      <div className="grid lg:grid-cols-[1fr_320px] gap-6">
+        <div className="border border-border h-[460px] flex flex-col bg-white">
+          <div className="border-b border-border px-5 py-3 flex items-center gap-2 bg-cream/40">
+            <Bot className="w-4 h-4 text-sage" />
+            <span className="text-sm font-medium text-navy">Assistente IEV</span>
+            <span className="ml-auto text-[10px] tracking-[0.2em] uppercase text-sage">Online</span>
+          </div>
+          <div className="flex-1 p-6 space-y-3 overflow-auto bg-cream/30">
+            {messages.map((m, i) => (
+              <div key={i} className={`p-3 max-w-md text-sm ${m.from === "bot" ? "bg-white border border-border" : "bg-sage/15 ml-auto"}`}>
+                {m.text}
+              </div>
+            ))}
+          </div>
+          <div className="border-t border-border p-3 flex gap-2">
+            <input
+              value={draft}
+              onChange={e => setDraft(e.target.value)}
+              onKeyDown={e => e.key === "Enter" && send()}
+              placeholder="Pergunte sobre exercícios, dor, frequência…"
+              className="flex-1 bg-transparent outline-none text-sm px-2"
+            />
+            <button onClick={send} className="text-xs tracking-[0.2em] uppercase text-sage flex items-center gap-1.5"><Send className="w-3.5 h-3.5" />Enviar</button>
+          </div>
         </div>
-        <div className="border-t border-border p-4 flex gap-3">
-          <input placeholder="Escreva uma mensagem..." className="flex-1 bg-transparent outline-none text-sm" />
-          <button className="text-xs tracking-[0.2em] uppercase text-sage">Enviar</button>
+        <div className="space-y-4">
+          <a href={WHATSAPP_LINK} target="_blank" rel="noopener" className="block p-5 border border-border hover:border-sage transition-colors bg-white">
+            <div className="flex items-center gap-2 text-[10px] tracking-[0.25em] uppercase text-sage"><MessageSquare className="w-3.5 h-3.5" /> Abrir chamado</div>
+            <h4 className="mt-2 font-medium text-navy">Falar com humano da clínica</h4>
+            <p className="mt-1 text-xs text-muted-foreground">Atendimento direto via WhatsApp com a equipe do Instituto.</p>
+            <span className="mt-3 inline-block text-xs text-sage">+55 (19) 99161-2513 →</span>
+          </a>
+          <div className="p-5 border border-border bg-cream/40">
+            <div className="text-[10px] tracking-[0.25em] uppercase text-sage">Sugestões de perguntas</div>
+            <ul className="mt-3 space-y-2 text-sm text-navy/80">
+              <li>• Posso treinar com dor?</li>
+              <li>• Quantas vezes por semana fazer o plano?</li>
+              <li>• Como progredir a carga com segurança?</li>
+            </ul>
+          </div>
         </div>
       </div>
-      <button className="mt-6 text-xs tracking-[0.2em] uppercase text-muted-foreground border border-border px-4 py-3">Abrir novo chamado</button>
     </div>
   );
+}
+
+function botReply(q: string) {
+  const t = q.toLowerCase();
+  if (t.includes("dor")) return "Dor leve durante o exercício pode ser esperada. Se for dor aguda, persistente ou irradiada, interrompa e abra um chamado com a equipe pelo WhatsApp.";
+  if (t.includes("freq") || t.includes("vez")) return "A frequência recomendada está descrita ao lado de cada exercício no seu plano. Em geral, exercícios de mobilidade são diários e os de força 3x/semana.";
+  if (t.includes("carga") || t.includes("progredir") || t.includes("evolu")) return "A progressão segura segue 3 critérios: execução perfeita, ausência de dor por 48h e percepção de esforço entre 6 e 8.";
+  if (t.includes("agend") || t.includes("consulta")) return "Você pode agendar ou remarcar diretamente na aba Agenda e Consultas. Para urgências, fale no WhatsApp da clínica.";
+  return "Anotado! Para uma resposta personalizada, abra um chamado com a equipe pelo WhatsApp — eles respondem em até 2 horas úteis.";
 }
 
 function Financeiro() {
@@ -207,25 +283,78 @@ function Financeiro() {
 }
 
 function Documentos() {
+  const [cpf, setCpf] = useState("");
+  const docs = [
+    { tipo: "Receita médica · Dr. Costa", data: "02 mai 2026", cpf: "123.456.789-00" },
+    { tipo: "Laudo de exames laboratoriais", data: "28 abr 2026", cpf: "123.456.789-00" },
+    { tipo: "Atestado · 3 dias", data: "12 abr 2026", cpf: "987.654.321-00" },
+    { tipo: "Prescrição fisioterapêutica", data: "05 abr 2026", cpf: "123.456.789-00" },
+  ];
+  const filtered = cpf ? docs.filter(d => d.cpf.replace(/\D/g, "").includes(cpf.replace(/\D/g, ""))) : docs;
   return (
     <div>
       <SectionTitle icon={FileText} title="Documentos" subtitle="Receitas, laudos e atestados sempre à mão." />
+
+      {/* Painel do médico — upload por CPF */}
+      <div className="border border-sage/30 bg-sage/5 p-6 mb-8">
+        <div className="flex items-center gap-2 text-[10px] tracking-[0.25em] uppercase text-sage mb-3"><Upload className="w-3.5 h-3.5" /> Painel do médico</div>
+        <h4 className="font-display text-xl text-navy">Enviar documento ao paciente</h4>
+        <p className="text-sm text-muted-foreground mt-1">Faça upload de receitas, laudos ou atestados. O documento aparece automaticamente para o paciente cujo CPF for informado.</p>
+        <form className="mt-5 grid md:grid-cols-[1fr_1fr_auto] gap-3" onSubmit={e => { e.preventDefault(); alert("Upload de documento — requer Lovable Cloud para armazenamento seguro."); }}>
+          <input placeholder="CPF do paciente" className="border border-border bg-white px-4 py-3 text-sm outline-none focus:border-sage" />
+          <input type="file" accept="application/pdf,image/*" className="border border-border bg-white px-4 py-2.5 text-sm" />
+          <button className="bg-navy text-white text-[11px] tracking-[0.2em] uppercase px-5 py-3 hover:bg-sage transition-colors">Enviar</button>
+        </form>
+        <p className="text-xs text-muted-foreground mt-3">Para ativar o armazenamento real e o filtro automático por CPF, é necessário ligar o backend (Lovable Cloud).</p>
+      </div>
+
+      {/* Filtro do paciente */}
+      <div className="flex items-center gap-3 max-w-md bg-white border border-border px-4 py-3 mb-5">
+        <Search className="w-4 h-4 text-sage" />
+        <input value={cpf} onChange={e => setCpf(e.target.value)} placeholder="Filtrar por CPF…" className="flex-1 bg-transparent outline-none text-sm" />
+      </div>
+
       <div className="grid md:grid-cols-2 gap-3">
-        {[["Receita médica · Dr. Costa","02 mai 2026"],["Laudo de exames laboratoriais","28 abr 2026"],["Atestado · 3 dias","12 abr 2026"],["Prescrição fisioterapêutica","05 abr 2026"]].map(([t,d]) => (
-          <div key={t} className="flex items-center justify-between p-5 border border-border hover:bg-cream/40 transition-colors">
-            <div className="flex items-center gap-3"><FileText className="w-5 h-5 text-sage" /><div><div className="text-sm font-medium text-navy">{t}</div><div className="text-xs text-muted-foreground mt-0.5">{d}</div></div></div>
+        {filtered.map(d => (
+          <div key={d.tipo + d.data} className="flex items-center justify-between p-5 border border-border hover:bg-cream/40 transition-colors">
+            <div className="flex items-center gap-3">
+              <FileText className="w-5 h-5 text-sage" />
+              <div>
+                <div className="text-sm font-medium text-navy">{d.tipo}</div>
+                <div className="text-xs text-muted-foreground mt-0.5">{d.data} · CPF {d.cpf}</div>
+              </div>
+            </div>
             <button className="text-xs text-sage flex items-center gap-1.5"><Download className="w-3.5 h-3.5" />PDF</button>
           </div>
         ))}
+        {!filtered.length && <div className="col-span-2 text-sm text-muted-foreground p-8 text-center border border-dashed border-border">Nenhum documento para o CPF informado.</div>}
       </div>
     </div>
   );
 }
 
 function Notificacoes() {
+  const [pushEnabled, setPushEnabled] = useState(true);
   return (
     <div>
       <SectionTitle icon={Bell} title="Lembretes e notificações" subtitle="Tudo que você não pode perder." />
+
+      <div className="border border-sage/30 bg-sage/5 p-5 mb-6 flex items-center justify-between gap-4 flex-wrap">
+        <div className="flex items-center gap-3">
+          <Smartphone className="w-5 h-5 text-sage" />
+          <div>
+            <div className="text-sm font-medium text-navy">Notificações push (mobile) — ativas</div>
+            <div className="text-xs text-muted-foreground">Você receberá lembretes de consultas, exercícios e avisos diretamente no seu celular.</div>
+          </div>
+        </div>
+        <button
+          onClick={() => setPushEnabled(p => !p)}
+          className={`text-[10px] tracking-[0.25em] uppercase px-4 py-2.5 transition-colors ${pushEnabled ? "bg-sage text-white" : "border border-sage text-sage"}`}
+        >
+          {pushEnabled ? "Ativadas" : "Ativar"}
+        </button>
+      </div>
+
       <div className="space-y-3">
         {[
           [Calendar, "Próxima consulta: quinta 14 mai · 10h00", "Confirmar presença"],

@@ -2,6 +2,17 @@ import Layout from "@/components/site/Layout";
 import PageHero from "@/components/site/PageHero";
 import recepcao from "@/assets/recepcao.jpg";
 import fachada from "@/assets/fachada.jpg";
+import { Target, Eye, Gem } from "lucide-react";
+
+const valores = [
+  ["Excelência Técnica", "Atuamos com base em conhecimento científico, atualização constante e práticas seguras."],
+  ["Cuidado Individualizado", "Cada pessoa é única — nossos atendimentos respeitam necessidades, limites e objetivos específicos."],
+  ["Saúde como Prioridade", "Colocamos o bem-estar físico e funcional acima de qualquer resultado estético ou imediato."],
+  ["Ética e Responsabilidade", "Agimos com transparência, profissionalismo e compromisso com a integridade dos nossos pacientes."],
+  ["Evolução Contínua", "Buscamos melhoria constante nos processos, atendimentos e resultados."],
+  ["Integração Corpo e Mente", "Entendemos o movimento como ferramenta de equilíbrio físico, emocional e funcional."],
+  ["Resultado com Consistência", "Focamos em progresso sustentável, seguro e mensurável."],
+];
 
 export default function Instituto() {
   return (
@@ -37,6 +48,47 @@ export default function Instituto() {
                 <p className="mt-2 text-sm text-muted-foreground font-light leading-relaxed">{d}</p>
               </div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* MISSÃO · VISÃO · VALORES */}
+      <section className="py-24 bg-cream">
+        <div className="container-x">
+          <div className="text-center max-w-2xl mx-auto">
+            <span className="eyebrow !justify-center !mx-auto">O que nos move</span>
+            <h2 className="mt-5 section-heading">Missão, visão e <em>valores</em></h2>
+          </div>
+          <div className="mt-14 grid md:grid-cols-2 gap-px bg-border mb-px">
+            <div className="bg-white p-10">
+              <div className="w-12 h-12 rounded-full border border-sage/30 flex items-center justify-center"><Target className="w-5 h-5 text-sage" strokeWidth={1.5} /></div>
+              <h3 className="mt-6 font-display text-2xl text-navy">Missão</h3>
+              <p className="mt-3 text-muted-foreground leading-relaxed font-light">
+                Transformar a saúde e a performance das pessoas através de um modelo clínico integrado, baseado em ciência, movimento e acompanhamento especializado.
+              </p>
+            </div>
+            <div className="bg-white p-10">
+              <div className="w-12 h-12 rounded-full border border-sage/30 flex items-center justify-center"><Eye className="w-5 h-5 text-sage" strokeWidth={1.5} /></div>
+              <h3 className="mt-6 font-display text-2xl text-navy">Visão</h3>
+              <p className="mt-3 text-muted-foreground leading-relaxed font-light">
+                Consolidar-se como um centro de referência em saúde, reabilitação e performance, unindo abordagem clínica e desenvolvimento físico de forma inovadora e eficaz.
+              </p>
+            </div>
+          </div>
+          <div className="mt-12">
+            <div className="flex items-center gap-3 mb-8">
+              <Gem className="w-5 h-5 text-sage" strokeWidth={1.5} />
+              <h3 className="font-display text-2xl text-navy">Valores</h3>
+            </div>
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-px bg-border">
+              {valores.map(([t, d], i) => (
+                <div key={t} className="bg-white p-7">
+                  <span className="font-display text-xs tracking-[0.2em] text-sage/60">{String(i + 1).padStart(2, "0")}</span>
+                  <h4 className="mt-3 font-medium text-navy">{t}</h4>
+                  <p className="mt-2 text-sm text-muted-foreground leading-relaxed font-light">{d}</p>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </section>
