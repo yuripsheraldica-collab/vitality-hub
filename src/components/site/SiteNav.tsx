@@ -2,6 +2,7 @@ import { Link, NavLink } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { Menu, X } from "lucide-react";
 import logo from "@/assets/logo.png";
+import { WHATSAPP_LINK } from "@/lib/contact";
 
 const links = [
   { to: "/instituto", label: "Instituto" },
@@ -10,6 +11,7 @@ const links = [
   { to: "/resultados", label: "Resultados" },
   { to: "/academico", label: "Acadêmico" },
   { to: "/news", label: "News" },
+  { to: "/contato", label: "Contato" },
 ];
 
 export default function SiteNav() {
@@ -34,7 +36,9 @@ export default function SiteNav() {
             src={logo}
             alt="Instituto Evolução"
             className={`w-auto transition-all duration-500 ${
-              scrolled ? "h-9 mix-blend-multiply" : "h-11 brightness-0 invert"
+              scrolled
+                ? "h-10 md:h-12 mix-blend-multiply"
+                : "h-10 md:h-12 brightness-0 invert"
             }`}
           />
         </Link>
@@ -56,12 +60,14 @@ export default function SiteNav() {
               {l.label}
             </NavLink>
           ))}
-          <Link
-            to="/centro-de-cuidados"
+          <a
+            href={WHATSAPP_LINK}
+            target="_blank"
+            rel="noopener"
             className="text-[10px] font-semibold tracking-[0.18em] uppercase whitespace-nowrap px-4 py-2.5 bg-navy text-white hover:bg-sage transition-colors"
           >
-            Área do Paciente
-          </Link>
+            Agendar minha consulta
+          </a>
         </nav>
         <button className="lg:hidden p-2" onClick={() => setOpen(!open)} aria-label="Menu">
           {open ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
@@ -75,9 +81,15 @@ export default function SiteNav() {
                 {l.label}
               </Link>
             ))}
-            <Link to="/centro-de-cuidados" onClick={() => setOpen(false)} className="text-xs tracking-[0.2em] uppercase py-3 px-4 bg-navy text-white text-center">
-              Área do Paciente
-            </Link>
+            <a
+              href={WHATSAPP_LINK}
+              target="_blank"
+              rel="noopener"
+              onClick={() => setOpen(false)}
+              className="text-xs tracking-[0.2em] uppercase py-3 px-4 bg-navy text-white text-center"
+            >
+              Agendar minha consulta
+            </a>
           </nav>
         </div>
       )}
