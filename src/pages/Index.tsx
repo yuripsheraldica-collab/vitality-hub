@@ -3,12 +3,13 @@ import { Link } from "react-router-dom";
 import {
   Stethoscope, Activity, FlaskConical, Dumbbell, Sparkles, Heart,
   Ear, Award, Link2, Hourglass, Building2, Target, ArrowRight, Phone, Calendar,
-  ClipboardList, Users
+  ClipboardList, Users, ShieldPlus, HeartPulse, Baby, Apple, Brain, Scan
 } from "lucide-react";
 import academia1 from "@/assets/academia-1.jpg";
 import academia2 from "@/assets/academia-2.jpg";
 import fachada from "@/assets/fachada.jpg";
 import recepcao from "@/assets/recepcao.jpg";
+import { WHATSAPP_LINK } from "@/lib/contact";
 
 export default function Index() {
   return (
@@ -20,7 +21,7 @@ export default function Index() {
           <div className="absolute inset-0 bg-gradient-to-r from-navy via-navy/85 to-navy/40" />
         </div>
         <div className="container-x relative z-10 py-20">
-          <div className="eyebrow"><span>Particular · Alto Padrão · Humanizado</span></div>
+          <div className="eyebrow"><span>Único · Alto Padrão · Humanizado</span></div>
           <h1 className="mt-7 font-display text-5xl md:text-7xl lg:text-[82px] leading-[1.05] max-w-4xl">
             Você merece um<br />
             cuidado que <em className="text-sage-light italic font-light">transforma,</em><br />
@@ -37,7 +38,7 @@ export default function Index() {
             ))}
           </div>
           <div className="mt-12 flex flex-wrap items-center gap-8">
-            <Link to="/centro-de-cuidados" className="btn-primary">Agendar minha avaliação</Link>
+            <a href={WHATSAPP_LINK} target="_blank" rel="noopener" className="btn-primary">Agendar minha consulta</a>
             <Link to="/instituto" className="btn-outline-light"><span>Como funciona</span> <ArrowRight className="w-4 h-4" /></Link>
           </div>
         </div>
@@ -47,10 +48,10 @@ export default function Index() {
       <section className="bg-navy text-white border-t border-sage/10 py-20">
         <div className="container-x grid grid-cols-2 lg:grid-cols-4 gap-px bg-sage/10">
           {[
-            ["5+", "Especialidades integradas"],
+            ["15+", "Especialidades integradas"],
             ["100%", "Atendimento particular"],
-            ["—", "Minutos de espera"],
-            ["1 lugar", "Para tudo que você precisa"],
+            ["0", "Minutos de espera"],
+            ["1 único lugar", "Para tudo que você precisa"],
           ].map(([v, l]) => (
             <div key={l} className="bg-navy text-center py-12 px-6">
               <div className="font-display text-5xl md:text-6xl font-light text-white">{v}</div>
@@ -61,7 +62,7 @@ export default function Index() {
       </section>
 
       {/* RUPTURA / "padrão que você sempre mereceu" — VÍDEO INSTITUCIONAL */}
-      <section className="py-28 md:py-36 bg-cream relative overflow-hidden">
+      <section className="py-20 md:py-24 bg-cream relative overflow-hidden">
         <div className="container-x grid lg:grid-cols-2 gap-16 items-center">
           <div className="relative">
             <video
@@ -100,7 +101,7 @@ export default function Index() {
       </section>
 
       {/* VALORES (ícones profissionais) */}
-      <section className="py-28 bg-cream">
+      <section className="py-20 bg-cream">
         <div className="container-x">
           <div className="text-center max-w-2xl mx-auto">
             <span className="eyebrow !justify-center !mx-auto">Nossos princípios</span>
@@ -131,7 +132,7 @@ export default function Index() {
       </section>
 
       {/* AMBIENTE */}
-      <section className="py-28 bg-white">
+      <section className="py-20 bg-white">
         <div className="container-x">
           <div className="flex flex-col md:flex-row items-end justify-between gap-8 mb-12">
             <h2 className="section-heading max-w-xl">Um espaço pensado para <em>você se sentir bem</em></h2>
@@ -156,14 +157,18 @@ export default function Index() {
             <h2 className="section-heading heading-light">Cuidado <em>integral</em></h2>
             <p className="max-w-sm text-white/45 text-sm leading-relaxed">Todas as especialidades integradas em um único lugar, com uma equipe que trata você como um todo.</p>
           </div>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-px bg-sage/10">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-px bg-sage/10">
             {[
-              [Stethoscope, "Consultas Médicas", "Atendimento clínico de excelência, com tempo real para ouvir, diagnosticar com precisão e acompanhar sua saúde."],
-              [FlaskConical, "Laboratório", "Exames laboratoriais completos, com tecnologia atual e interpretação inteligente."],
+              [Scan, "Dermatologia", "Cuidado clínico e estético da pele, com diagnóstico preciso e protocolos personalizados."],
+              [HeartPulse, "Vascular", "Avaliação e tratamento de doenças venosas e arteriais, da prevenção ao acompanhamento contínuo."],
+              [Heart, "Cardiologia", "Saúde do coração com investigação detalhada, exames e seguimento de longo prazo."],
+              [ShieldPlus, "Ginecologia", "Saúde da mulher em todas as fases, com escuta acolhedora e abordagem integrada."],
+              [Hourglass, "Geriatria", "Cuidado especializado para a maturidade, com foco em autonomia, longevidade e qualidade de vida."],
+              [Baby, "Nutrologia", "Investigação clínica da relação entre nutrição, metabolismo e doenças, com plano individualizado."],
               [Activity, "Fisioterapia", "Reabilitação e prevenção com abordagem individualizada — do pós-operatório ao esportivo."],
-              [Dumbbell, "Academia Premium", "Espaço fitness de alto padrão com acompanhamento profissional contínuo."],
-              [Sparkles, "Pilates Clínico", "Método Pilates em ambiente exclusivo, com instrutores certificados."],
-              [Heart, "Saúde Integrativa", "Olhar completo sobre você — mente, corpo e estilo de vida."],
+              [Dumbbell, "Academia", "Espaço fitness de alto padrão com acompanhamento profissional contínuo e prescrição integrada."],
+              [Sparkles, "Pilates", "Método Pilates clínico e funcional em ambiente exclusivo, com instrutores certificados."],
+              [Apple, "Nutrição", "Reeducação alimentar funcional e esportiva, com plano realista e acompanhamento próximo."],
             ].map(([Icon, t, d]) => {
               const I = Icon as any;
               return (
@@ -193,10 +198,11 @@ export default function Index() {
               Agende sua avaliação inicial e descubra o que um atendimento de verdade pode fazer por você. Com hora marcada, sem fila, sem pressa.
             </p>
             <div className="mt-8 space-y-3 text-sm text-muted-foreground">
-              {[[Calendar, "Segunda a sábado · horários flexíveis"],[Phone, "WhatsApp: (19) 9xxxx-xxxx"],[ClipboardList, "Resposta em até 2 horas úteis"],[Users, "Atendimento exclusivamente particular"]].map(([I,t]) => {
+              {[[Calendar, "Segunda a sábado · horários flexíveis"],[Phone, "WhatsApp: (19) 99161-2513"],[ClipboardList, "Resposta em até 2 horas úteis"],[Users, "Atendimento exclusivamente particular"]].map(([I,t]) => {
                 const Ic = I as any;
                 return <div key={t as string} className="flex items-center gap-3"><Ic className="w-4 h-4 text-sage" strokeWidth={1.5} />{t as string}</div>;
               })}
+              <a href={WHATSAPP_LINK} target="_blank" rel="noopener" className="inline-flex btn-primary mt-4">Falar no WhatsApp</a>
             </div>
           </div>
           <div className="bg-white p-10 border border-border">
