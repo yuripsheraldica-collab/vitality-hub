@@ -1,6 +1,6 @@
 import Layout from "@/components/site/Layout";
 import PageHero from "@/components/site/PageHero";
-import { FileText, Search, Download, X, ArrowLeft } from "lucide-react";
+import { FileText, Search, Download, ArrowLeft } from "lucide-react";
 import { useState } from "react";
 
 type Article = {
