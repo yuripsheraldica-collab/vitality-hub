@@ -8,6 +8,7 @@ const links = [
   { to: "/instituto", label: "Instituto" },
   { to: "/equipe", label: "Equipe" },
   { to: "/especialidades", label: "Especialidades" },
+  { to: "/area-do-paciente", label: "Area do Paciente" },
   { to: "/resultados", label: "Resultados" },
   { to: "/academico", label: "Acadêmico" },
   { to: "/news", label: "News" },
@@ -37,8 +38,8 @@ export default function SiteNav() {
             alt="Instituto Evolução"
             className={`w-auto transition-all duration-500 ${
               scrolled
-                ? "h-10 md:h-12 mix-blend-multiply"
-                : "h-10 md:h-12 brightness-0 invert"
+                ? "h-14 md:h-16 mix-blend-multiply"
+                : "h-16 md:h-20 brightness-0 invert"
             }`}
           />
         </Link>
