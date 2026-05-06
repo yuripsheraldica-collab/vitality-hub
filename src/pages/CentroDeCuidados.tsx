@@ -132,6 +132,44 @@ function Agenda() {
 }
 
 function Evolucao() {
+  function downloadReport(name: string) {
+    const html = `<!doctype html><html><head><meta charset="utf-8"><title>${name}</title>
+      <style>body{font-family:Georgia,serif;color:#1a2a3a;max-width:720px;margin:40px auto;padding:0 24px;line-height:1.6}
+      h1{font-size:28px;border-bottom:2px solid #7a8c6f;padding-bottom:8px}
+      h2{color:#7a8c6f;margin-top:32px;font-size:18px;text-transform:uppercase;letter-spacing:.1em}
+      table{width:100%;border-collapse:collapse;margin:12px 0}
+      th,td{border-bottom:1px solid #e5e1d8;padding:8px;text-align:left;font-size:14px}
+      .meta{color:#7a8c6f;font-size:12px;letter-spacing:.15em;text-transform:uppercase}
+      .footer{margin-top:48px;font-size:11px;color:#888;border-top:1px solid #ddd;padding-top:12px}</style>
+    </head><body>
+      <div class="meta">Instituto Evolução · Relatório clínico</div>
+      <h1>${name}</h1>
+      <p><strong>Paciente:</strong> João Silva &nbsp; · &nbsp; <strong>Profissional:</strong> Dra. Lima (CREFITO 12345-F)</p>
+      <h2>Avaliação subjetiva</h2>
+      <p>Paciente refere melhora progressiva da dor lombar, com escala EVA reduzida de 8 para 2. Relata maior facilidade nas atividades de vida diária, ausência de irradiação e sono mais reparador.</p>
+      <h2>Medidas funcionais</h2>
+      <table><tr><th>Medida</th><th>Inicial</th><th>Atual</th><th>Δ</th></tr>
+        <tr><td>Dor (EVA 0–10)</td><td>8</td><td>2</td><td>−75%</td></tr>
+        <tr><td>Mobilidade lombar (°)</td><td>45°</td><td>110°</td><td>+144%</td></tr>
+        <tr><td>Força isométrica de glúteo (kg)</td><td>12</td><td>28</td><td>+133%</td></tr>
+        <tr><td>Teste de equilíbrio unipodal (s)</td><td>8</td><td>32</td><td>+300%</td></tr>
+      </table>
+      <h2>Plano para o próximo ciclo</h2>
+      <ul><li>Progressão de carga em agachamento e stiff (1 RIR).</li>
+      <li>Manutenção da mobilidade diária (5 min · 3 exercícios).</li>
+      <li>Reavaliação em 30 dias com novo teste isométrico.</li></ul>
+      <h2>Conduta</h2>
+      <p>Manter frequência de 2x/semana de fisioterapia + 3x/semana de treino na academia, com integração da equipe médica.</p>
+      <div class="footer">Documento gerado automaticamente pelo Centro de Cuidados — Instituto Evolução · Limeira/SP</div>
+    </body></html>`;
+    const blob = new Blob([html], { type: "text/html;charset=utf-8" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = name.replace(/[^\w\-]+/g, "_") + ".html";
+    document.body.appendChild(a); a.click(); a.remove();
+    URL.revokeObjectURL(url);
+  }
   return (
     <div>
       <SectionTitle icon={TrendingUp} title="Evolução clínica" subtitle="Relatórios, progresso e comparativos antes/depois." />
@@ -144,13 +182,20 @@ function Evolucao() {
           </div>
         ))}
       </div>
-      <h3 className="text-xs tracking-[0.2em] uppercase text-sage mb-4">Relatórios do fisioterapeuta</h3>
-      {["Relatório quinzenal — abril/2026", "Avaliação de admissão", "Relatório mensal — março/2026"].map(r => (
+      <h3 className="text-xs tracking-[0.2em] uppercase text-sage mb-4">Relatórios padrão</h3>
+      {[
+        "Avaliação de admissão",
+        "Relatório quinzenal — abril/2026",
+        "Relatório mensal — março/2026",
+        "Reavaliação trimestral",
+        "Relatório de alta",
+      ].map(r => (
         <div key={r} className="flex items-center justify-between py-4 border-b border-border">
           <span className="text-sm">{r}</span>
-          <button className="text-xs text-sage flex items-center gap-1.5"><Download className="w-3.5 h-3.5" />Baixar</button>
+          <button onClick={() => downloadReport(r)} className="text-xs text-sage flex items-center gap-1.5 hover:text-navy transition-colors"><Download className="w-3.5 h-3.5" />Baixar</button>
         </div>
       ))}
+      <p className="mt-4 text-xs text-muted-foreground">Os relatórios são gerados a partir de modelos padrão preenchidos pela equipe clínica. Para versões em PDF assinadas, fale com a recepção.</p>
     </div>
   );
 }
