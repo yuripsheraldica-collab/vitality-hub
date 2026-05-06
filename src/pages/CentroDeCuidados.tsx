@@ -238,32 +238,45 @@ function Exercicios() {
 
 function Comunicacao() {
   const [messages, setMessages] = useState<{ from: "user" | "bot"; text: string }[]>([
-    { from: "bot", text: "Olá! Sou o assistente do Instituto Evolução. Posso te ajudar com dúvidas sobre exercícios, frequência, dor pós-treino e cuidados gerais. Em que posso ajudar?" },
+    { from: "bot", text: "Oi! Eu sou a Raquel, do Instituto Evolução 💚 Posso te ajudar com dúvidas sobre exercícios, dor, frequência, alimentação e cuidados pós-consulta. O que você gostaria de saber?" },
   ]);
   const [draft, setDraft] = useState("");
-  function send() {
-    const t = draft.trim();
+  const [typing, setTyping] = useState(false);
+  async function send(prefilled?: string) {
+    const t = (prefilled ?? draft).trim();
     if (!t) return;
-    const reply = botReply(t);
-    setMessages(m => [...m, { from: "user", text: t }, { from: "bot", text: reply }]);
+    setMessages(m => [...m, { from: "user", text: t }]);
     setDraft("");
+    setTyping(true);
+    const reply = await raquelReply(t);
+    setTyping(false);
+    setMessages(m => [...m, { from: "bot", text: reply }]);
   }
   return (
     <div>
       <SectionTitle icon={MessageSquare} title="Comunicação direta" subtitle="Chat com a clínica, dúvidas pós-consulta e abertura de chamados." />
       <div className="grid lg:grid-cols-[1fr_320px] gap-6">
         <div className="border border-border h-[460px] flex flex-col bg-white">
-          <div className="border-b border-border px-5 py-3 flex items-center gap-2 bg-cream/40">
-            <Bot className="w-4 h-4 text-sage" />
-            <span className="text-sm font-medium text-navy">Assistente IEV</span>
-            <span className="ml-auto text-[10px] tracking-[0.2em] uppercase text-sage">Online</span>
+          <div className="border-b border-border px-5 py-3 flex items-center gap-3 bg-cream/40">
+            <img src={raquelImg} alt="Raquel" className="w-10 h-10 rounded-full object-cover border border-sage/30" />
+            <div>
+              <div className="text-sm font-medium text-navy leading-tight">Raquel</div>
+              <div className="text-[10px] text-muted-foreground">Atendimento Instituto Evolução</div>
+            </div>
+            <span className="ml-auto flex items-center gap-1.5 text-[10px] tracking-[0.2em] uppercase text-sage"><span className="w-1.5 h-1.5 rounded-full bg-sage animate-pulse" /> Online</span>
           </div>
           <div className="flex-1 p-6 space-y-3 overflow-auto bg-cream/30">
             {messages.map((m, i) => (
-              <div key={i} className={`p-3 max-w-md text-sm ${m.from === "bot" ? "bg-white border border-border" : "bg-sage/15 ml-auto"}`}>
-                {m.text}
+              <div key={i} className={`flex gap-2 ${m.from === "user" ? "justify-end" : ""}`}>
+                {m.from === "bot" && <img src={raquelImg} alt="" className="w-7 h-7 rounded-full object-cover shrink-0 mt-1" />}
+                <div className={`p-3 max-w-md text-sm whitespace-pre-wrap ${m.from === "bot" ? "bg-white border border-border" : "bg-sage/15"}`}>{m.text}</div>
               </div>
             ))}
+            {typing && (
+              <div className="flex gap-2"><img src={raquelImg} alt="" className="w-7 h-7 rounded-full object-cover" />
+                <div className="p-3 bg-white border border-border text-sm text-muted-foreground italic">Raquel está digitando…</div>
+              </div>
+            )}
           </div>
           <div className="border-t border-border p-3 flex gap-2">
             <input
@@ -273,7 +286,7 @@ function Comunicacao() {
               placeholder="Pergunte sobre exercícios, dor, frequência…"
               className="flex-1 bg-transparent outline-none text-sm px-2"
             />
-            <button onClick={send} className="text-xs tracking-[0.2em] uppercase text-sage flex items-center gap-1.5"><Send className="w-3.5 h-3.5" />Enviar</button>
+            <button onClick={() => send()} className="text-xs tracking-[0.2em] uppercase text-sage flex items-center gap-1.5"><Send className="w-3.5 h-3.5" />Enviar</button>
           </div>
         </div>
         <div className="space-y-4">
@@ -286,9 +299,9 @@ function Comunicacao() {
           <div className="p-5 border border-border bg-cream/40">
             <div className="text-[10px] tracking-[0.25em] uppercase text-sage">Sugestões de perguntas</div>
             <ul className="mt-3 space-y-2 text-sm text-navy/80">
-              <li>• Posso treinar com dor?</li>
-              <li>• Quantas vezes por semana fazer o plano?</li>
-              <li>• Como progredir a carga com segurança?</li>
+              {["Posso treinar com dor?","Quantas vezes por semana fazer o plano?","Como progredir a carga com segurança?","O que comer antes do treino?"].map(q => (
+                <li key={q}><button onClick={() => send(q)} className="text-left hover:text-sage transition-colors">• {q}</button></li>
+              ))}
             </ul>
           </div>
         </div>
@@ -297,13 +310,85 @@ function Comunicacao() {
   );
 }
 
-function botReply(q: string) {
+async function raquelReply(q: string): Promise<string> {
   const t = q.toLowerCase();
-  if (t.includes("dor")) return "Dor leve durante o exercício pode ser esperada. Se for dor aguda, persistente ou irradiada, interrompa e abra um chamado com a equipe pelo WhatsApp.";
-  if (t.includes("freq") || t.includes("vez")) return "A frequência recomendada está descrita ao lado de cada exercício no seu plano. Em geral, exercícios de mobilidade são diários e os de força 3x/semana.";
-  if (t.includes("carga") || t.includes("progredir") || t.includes("evolu")) return "A progressão segura segue 3 critérios: execução perfeita, ausência de dor por 48h e percepção de esforço entre 6 e 8.";
-  if (t.includes("agend") || t.includes("consulta")) return "Você pode agendar ou remarcar diretamente na aba Agenda e Consultas. Para urgências, fale no WhatsApp da clínica.";
-  return "Anotado! Para uma resposta personalizada, abra um chamado com a equipe pelo WhatsApp — eles respondem em até 2 horas úteis.";
+  const kb: { match: RegExp; reply: string }[] = [
+    { match: /(dor|doend|dói|incomod)/, reply: "Que bom que você falou comigo antes! 💚\n\nDor leve a moderada (até 3 na escala 0–10) durante o exercício é tolerável segundo as diretrizes do American College of Sports Medicine. Mas se a dor for aguda, irradiada ou persistir por mais de 24h, é sinal pra interromper.\n\nQuer que eu abra um chamado pra equipe te ligar?" },
+    { match: /(freq|vez|por semana|quantas)/, reply: "Pelas recomendações da OMS, adultos saudáveis devem fazer:\n• 150 min/semana de atividade aeróbica moderada\n• 2x/semana de treino de força\n\nNo seu plano eu vejo mobilidade diária e fortalecimento 3x/semana — tá bem dentro do ideal! 👏" },
+    { match: /(carga|progredir|evolu|peso)/, reply: "A progressão segura segue 3 critérios da literatura:\n1) Execução tecnicamente perfeita por 2 sessões seguidas\n2) Ausência de dor nas 48h após o treino\n3) Percepção de esforço entre 6–8 (escala 0–10)\n\nQuando bater os 3, aumente no máx. 5–10% da carga. Sem pressa! 😉" },
+    { match: /(agend|consulta|hora)/, reply: "Você pode agendar ou remarcar direto na aba Agenda e Consultas aqui do portal. Para urgências, abra um chamado no WhatsApp ao lado!" },
+    { match: /(comer|aliment|nutri|antes do treino)/, reply: "Pelas diretrizes da SBME (Sociedade Brasileira de Medicina do Esporte):\n• 1–2h antes: carboidrato de fácil digestão (banana, pão, batata-doce)\n• Pós-treino (até 1h): proteína + carboidrato (ex.: ovos + tapioca)\n• Hidratação: 500ml até 2h antes\n\nSe quiser plano individualizado, posso agendar com a nutri! 🥗" },
+    { match: /(água|hidrat)/, reply: "A recomendação geral é 35ml/kg/dia. Para 70kg dá ~2,5L. Em dias de treino, some +500ml por hora de atividade. 💧" },
+    { match: /(sono|dormir)/, reply: "Sono é parte do tratamento! A National Sleep Foundation recomenda 7–9h por noite para adultos. Sono ruim = mais dor, menos recuperação. Quer dicas de higiene do sono?" },
+    { match: /(pilates|alonga|mobil)/, reply: "Mobilidade e Pilates clínico funcionam melhor antes do treino de força (5–10 min) e como sessão dedicada 2x/semana. ✨" },
+    { match: /(estress|ansied|cansa)/, reply: "Movimento regular é hoje considerado tratamento de primeira linha para ansiedade leve a moderada (revisão JAMA 2023). Movimento + sono + alimentação fazem mais que muito remédio." },
+  ];
+  await new Promise(r => setTimeout(r, 700 + Math.random() * 600));
+  for (const k of kb) if (k.match.test(t)) return k.reply;
+  return "Boa pergunta! 🤔 Vou pesquisar nas nossas referências e te respondo melhor. Pra um plano personalizado, vale falar direto com a equipe — quer que eu abra um chamado no WhatsApp?";
+}
+
+function Planos() {
+  const planos = [
+    { nome: "Essencial", preco: "R$ 590", periodo: "/mês", destaque: false,
+      desc: "Para quem quer começar a se cuidar com qualidade.",
+      itens: ["1 consulta médica/mês", "4 sessões de fisio ou pilates", "Acesso ao Centro de Cuidados", "Suporte por WhatsApp"] },
+    { nome: "Cuidado Integral", preco: "R$ 1.290", periodo: "/mês", destaque: true,
+      desc: "O modelo mais escolhido — cuidado completo e contínuo.",
+      itens: ["Consultas médicas multidisciplinares", "8 sessões fisio/pilates", "Academia + personal incluído", "Avaliação nutricional trimestral", "Relatórios mensais"] },
+    { nome: "Performance Premium", preco: "R$ 2.190", periodo: "/mês", destaque: false,
+      desc: "Atenção máxima, para alta performance e longevidade.",
+      itens: ["Tudo do Cuidado Integral", "Acompanhamento individual semanal", "Avaliação biomecânica trimestral", "Hidroterapia inclusa", "Atendimento prioritário"] },
+    { nome: "TotalPass / Gympass", preco: "Conforme convênio", periodo: "", destaque: false,
+      desc: "12 sessões mensais via seu benefício corporativo.",
+      itens: ["12 sessões fisio ou pilates", "Acompanhamento clínico básico", "Acesso ao app de exercícios"] },
+  ];
+  const total = 12;
+  const usadas = 7;
+  const restantes = total - usadas;
+  return (
+    <div>
+      <SectionTitle icon={Sparkles} title="Planos" subtitle="Escolha o cuidado que cabe na sua rotina — todos com integração total da equipe." />
+      <div className="border border-sage/30 bg-sage/5 p-6 mb-10">
+        <div className="flex items-center justify-between gap-4 flex-wrap">
+          <div>
+            <div className="text-[10px] tracking-[0.25em] uppercase text-sage">Seu plano · TotalPass</div>
+            <h4 className="mt-1 font-display text-2xl text-navy">Sessões do mês</h4>
+            <p className="text-sm text-muted-foreground mt-1">Você tem direito a {total} sessões mensais. Usadas: <strong className="text-navy">{usadas}</strong> · Restantes: <strong className="text-sage">{restantes}</strong></p>
+          </div>
+          <div className="text-right">
+            <div className="font-display text-4xl text-sage">{restantes}<span className="text-xl text-muted-foreground">/{total}</span></div>
+            <div className="text-[10px] tracking-[0.2em] uppercase text-muted-foreground">disponíveis</div>
+          </div>
+        </div>
+        <div className="mt-5 flex gap-1.5">
+          {Array.from({ length: total }).map((_, i) => (
+            <div key={i} className={`flex-1 h-2 ${i < usadas ? "bg-sage" : "bg-sage/15"}`} />
+          ))}
+        </div>
+        <div className="mt-3 text-xs text-muted-foreground">Ciclo atual: 01 mai a 31 mai. Sessões zeradas a cada novo mês.</div>
+      </div>
+      <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
+        {planos.map(p => (
+          <div key={p.nome} className={`border p-6 flex flex-col ${p.destaque ? "border-sage bg-sage/5 relative" : "border-border bg-white"}`}>
+            {p.destaque && <span className="absolute -top-3 left-6 text-[9px] tracking-[0.25em] uppercase bg-sage text-white px-3 py-1">Mais escolhido</span>}
+            <h3 className="font-display text-xl text-navy">{p.nome}</h3>
+            <p className="text-xs text-muted-foreground mt-1 min-h-[36px]">{p.desc}</p>
+            <div className="mt-4 flex items-baseline gap-1">
+              <span className="font-display text-3xl text-navy">{p.preco}</span>
+              <span className="text-xs text-muted-foreground">{p.periodo}</span>
+            </div>
+            <ul className="mt-5 space-y-2 flex-1">
+              {p.itens.map(i => (
+                <li key={i} className="text-xs text-muted-foreground flex gap-2"><Check className="w-3.5 h-3.5 text-sage shrink-0 mt-0.5" /><span>{i}</span></li>
+              ))}
+            </ul>
+            <a href={WHATSAPP_LINK} target="_blank" rel="noopener" className={`mt-6 text-[10px] tracking-[0.25em] uppercase text-center py-3 transition-colors ${p.destaque ? "bg-navy text-white hover:bg-sage" : "border border-sage text-sage hover:bg-sage hover:text-white"}`}>Quero esse</a>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
 }
 
 function Financeiro() {
