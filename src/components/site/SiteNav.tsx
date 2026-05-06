@@ -38,8 +38,8 @@ export default function SiteNav() {
             alt="Instituto Evolução"
             className={`w-auto transition-all duration-500 ${
               scrolled
-                ? "h-14 md:h-16 mix-blend-multiply"
-                : "h-16 md:h-20 brightness-0 invert"
+                ? "h-20 md:h-24 mix-blend-multiply"
+                : "h-24 md:h-28 brightness-0 invert"
             }`}
           />
         </Link>
