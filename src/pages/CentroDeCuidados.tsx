@@ -1,19 +1,21 @@
 import Layout from "@/components/site/Layout";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { CALENDLY_LINK, WHATSAPP_LINK } from "@/lib/contact";
 import {
   Calendar, TrendingUp, Dumbbell, MessageSquare, CreditCard, FileText, Bell,
   Clock, CheckCircle2, PlayCircle, Download, AlertCircle, ArrowRight, Bot, Send,
-  Upload, Search, Smartphone
+  Upload, Search, Smartphone, Sparkles, Check
 } from "lucide-react";
+import raquelImg from "@/assets/raquel.jpg";
 
-type TabId = "agenda" | "evolucao" | "exercicios" | "comunicacao" | "financeiro" | "documentos" | "notificacoes";
+type TabId = "agenda" | "evolucao" | "exercicios" | "comunicacao" | "planos" | "financeiro" | "documentos" | "notificacoes";
 
 const tabs: { id: TabId; label: string; icon: any }[] = [
   { id: "agenda", label: "Agenda e consultas", icon: Calendar },
   { id: "evolucao", label: "Evolução clínica", icon: TrendingUp },
   { id: "exercicios", label: "Plano de exercícios", icon: Dumbbell },
   { id: "comunicacao", label: "Comunicação", icon: MessageSquare },
+  { id: "planos", label: "Planos", icon: Sparkles },
   { id: "financeiro", label: "Financeiro", icon: CreditCard },
   { id: "documentos", label: "Documentos", icon: FileText },
   { id: "notificacoes", label: "Notificações", icon: Bell },
@@ -66,6 +68,7 @@ export default function CentroDeCuidados() {
             {tab === "evolucao" && <Evolucao />}
             {tab === "exercicios" && <Exercicios />}
             {tab === "comunicacao" && <Comunicacao />}
+            {tab === "planos" && <Planos />}
             {tab === "financeiro" && <Financeiro />}
             {tab === "documentos" && <Documentos />}
             {tab === "notificacoes" && <Notificacoes />}
