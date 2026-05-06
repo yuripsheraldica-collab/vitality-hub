@@ -467,7 +467,40 @@ function Documentos() {
 }
 
 function Notificacoes() {
-  const [pushEnabled, setPushEnabled] = useState(true);
+  const [pushEnabled, setPushEnabled] = useState<boolean>(() => {
+    if (typeof window === "undefined") return true;
+    return localStorage.getItem("iev_push") !== "off";
+  });
+  const [prefs, setPrefs] = useState<Record<string, boolean>>(() => {
+    const saved = typeof window !== "undefined" ? localStorage.getItem("iev_push_prefs") : null;
+    return saved ? JSON.parse(saved) : { consultas: true, exercicios: true, exames: true, avisos: true };
+  });
+  useEffect(() => { localStorage.setItem("iev_push", pushEnabled ? "on" : "off"); }, [pushEnabled]);
+  useEffect(() => { localStorage.setItem("iev_push_prefs", JSON.stringify(prefs)); }, [prefs]);
+
+  type Notif = { id: string; icon: any; text: string; action: string; onAction: () => void };
+  const initial: Notif[] = [
+    { id: "n1", icon: Calendar, text: "Próxima consulta: quinta 14 mai · 10h00", action: "Confirmar presença",
+      onAction: () => alert("Presença confirmada! Enviamos um lembrete pra você 1h antes.") },
+    { id: "n2", icon: Dumbbell, text: "Você tem 2 exercícios pendentes hoje", action: "Ver plano",
+      onAction: () => alert("Abrindo seu plano de exercícios…") },
+    { id: "n3", icon: AlertCircle, text: "Resultados de exames disponíveis", action: "Acessar",
+      onAction: () => alert("Abrindo seus exames na aba Documentos…") },
+    { id: "n4", icon: Bell, text: "Aviso da clínica: novo horário de atendimento aos sábados", action: "Ler mais",
+      onAction: () => alert("A partir de junho, atendemos aos sábados das 8h às 14h.") },
+  ];
+  const [items, setItems] = useState<Notif[]>(initial);
+  function dismiss(id: string) { setItems(it => it.filter(i => i.id !== id)); }
+
+  async function enablePush() {
+    if (!("Notification" in window)) { alert("Seu navegador não suporta notificações push."); return; }
+    const perm = await Notification.requestPermission();
+    if (perm === "granted") {
+      setPushEnabled(true);
+      new Notification("Instituto Evolução", { body: "Pronto! Você receberá lembretes por aqui. 💚" });
+    } else { alert("Permissão de notificação negada. Ative nas configurações do navegador."); }
+  }
+
   return (
     <div>
       <SectionTitle icon={Bell} title="Lembretes e notificações" subtitle="Tudo que você não pode perder." />
@@ -476,33 +509,45 @@ function Notificacoes() {
         <div className="flex items-center gap-3">
           <Smartphone className="w-5 h-5 text-sage" />
           <div>
-            <div className="text-sm font-medium text-navy">Notificações push (mobile) — ativas</div>
-            <div className="text-xs text-muted-foreground">Você receberá lembretes de consultas, exercícios e avisos diretamente no seu celular.</div>
+            <div className="text-sm font-medium text-navy">Notificações push (mobile) — {pushEnabled ? "ativas" : "desativadas"}</div>
+            <div className="text-xs text-muted-foreground">Receba lembretes de consultas, exercícios e avisos direto no seu celular.</div>
           </div>
         </div>
         <button
-          onClick={() => setPushEnabled(p => !p)}
-          className={`text-[10px] tracking-[0.25em] uppercase px-4 py-2.5 transition-colors ${pushEnabled ? "bg-sage text-white" : "border border-sage text-sage"}`}
+          onClick={() => pushEnabled ? setPushEnabled(false) : enablePush()}
+          className={`text-[10px] tracking-[0.25em] uppercase px-4 py-2.5 transition-colors ${pushEnabled ? "bg-sage text-white hover:bg-sage/80" : "border border-sage text-sage hover:bg-sage hover:text-white"}`}
         >
-          {pushEnabled ? "Ativadas" : "Ativar"}
+          {pushEnabled ? "Ativadas · Desativar" : "Ativar agora"}
         </button>
       </div>
 
+      {/* Preferências */}
+      <div className="border border-border bg-white p-5 mb-8">
+        <div className="text-[10px] tracking-[0.25em] uppercase text-sage mb-4">O que você quer receber</div>
+        <div className="grid sm:grid-cols-2 gap-3">
+          {([["consultas","Lembretes de consultas"],["exercicios","Exercícios pendentes"],["exames","Resultados de exames"],["avisos","Avisos da clínica"]] as const).map(([k,l]) => (
+            <label key={k} className="flex items-center gap-3 text-sm text-navy cursor-pointer">
+              <input type="checkbox" checked={!!prefs[k]} onChange={e => setPrefs(p => ({ ...p, [k]: e.target.checked }))} className="accent-sage w-4 h-4" />
+              {l}
+            </label>
+          ))}
+        </div>
+      </div>
+
       <div className="space-y-3">
-        {[
-          [Calendar, "Próxima consulta: quinta 14 mai · 10h00", "Confirmar presença"],
-          [Dumbbell, "Você tem 2 exercícios pendentes hoje", "Ver plano"],
-          [AlertCircle, "Resultados de exames disponíveis", "Acessar"],
-          [Bell, "Aviso da clínica: novo horário de atendimento aos sábados", "Ler mais"],
-        ].map(([Icon, t, a], i) => {
-          const I = Icon as any;
+        {items.map(n => {
+          const I = n.icon as any;
           return (
-            <div key={i} className="flex items-center justify-between p-5 border border-border bg-cream/40">
-              <div className="flex items-center gap-4"><I className="w-5 h-5 text-sage" /><span className="text-sm text-navy">{t as string}</span></div>
-              <button className="text-[10px] tracking-[0.2em] uppercase text-sage">{a as string} →</button>
+            <div key={n.id} className="flex items-center justify-between p-5 border border-border bg-cream/40 gap-3">
+              <div className="flex items-center gap-4 min-w-0"><I className="w-5 h-5 text-sage shrink-0" /><span className="text-sm text-navy truncate">{n.text}</span></div>
+              <div className="flex items-center gap-3 shrink-0">
+                <button onClick={n.onAction} className="text-[10px] tracking-[0.2em] uppercase text-sage hover:text-navy transition-colors">{n.action} →</button>
+                <button onClick={() => dismiss(n.id)} aria-label="Dispensar" className="text-muted-foreground hover:text-navy text-xs">×</button>
+              </div>
             </div>
           );
         })}
+        {!items.length && <div className="text-sm text-muted-foreground p-8 text-center border border-dashed border-border">Tudo em dia! Sem novas notificações. ✨</div>}
       </div>
     </div>
   );
