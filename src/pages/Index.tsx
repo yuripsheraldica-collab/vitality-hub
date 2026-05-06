@@ -9,6 +9,7 @@ import academia1 from "@/assets/academia-1.jpg";
 import academia2 from "@/assets/academia-2.jpg";
 import fachada from "@/assets/fachada.jpg";
 import recepcao from "@/assets/recepcao.jpg";
+import headerRecepcao from "@/assets/header-recepcao.jpg";
 import { WHATSAPP_LINK } from "@/lib/contact";
 
 export default function Index() {
@@ -17,7 +18,7 @@ export default function Index() {
       {/* HERO */}
       <section className="relative min-h-[92vh] bg-navy text-white flex items-center overflow-hidden">
         <div className="absolute inset-0">
-          <img src={fachada} alt="" className="w-full h-full object-cover opacity-30" />
+          <img src={headerRecepcao} alt="" className="w-full h-full object-cover opacity-40" />
           <div className="absolute inset-0 bg-gradient-to-r from-navy via-navy/85 to-navy/40" />
         </div>
         <div className="container-x relative z-10 py-20">
@@ -48,10 +49,10 @@ export default function Index() {
       <section className="bg-navy text-white border-t border-sage/10 py-20">
         <div className="container-x grid grid-cols-2 lg:grid-cols-4 gap-px bg-sage/10">
           {[
-            ["15+", "Especialidades integradas"],
+            ["10+", "Especialidades integradas"],
             ["100%", "Atendimento particular"],
             ["0", "Minutos de espera"],
-            ["1 único lugar", "Para tudo que você precisa"],
+            ["01", "Lugar para tudo o que você precisa"],
           ].map(([v, l]) => (
             <div key={l} className="bg-navy text-center py-12 px-6">
               <div className="font-display text-5xl md:text-6xl font-light text-white">{v}</div>

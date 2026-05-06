@@ -7,7 +7,7 @@ export default function SiteFooter() {
     <footer className="bg-navy text-white pt-20 pb-10 border-t border-sage/15">
       <div className="container-x grid md:grid-cols-4 gap-10">
         <div>
-          <img src={logo} alt="Instituto Evolução" className="h-12 w-auto invert brightness-0 opacity-90 mb-4" />
+          <img src={logo} alt="Instituto Evolução" className="h-24 w-auto invert brightness-0 opacity-95 mb-4" />
           <p className="text-sm text-white/50 leading-relaxed font-light">
             Centro multidisciplinar de saúde e bem-estar de alto padrão. 100% particular, com hora marcada e sem espera.
           </p>

@@ -1,19 +1,21 @@
 import Layout from "@/components/site/Layout";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { CALENDLY_LINK, WHATSAPP_LINK } from "@/lib/contact";
 import {
   Calendar, TrendingUp, Dumbbell, MessageSquare, CreditCard, FileText, Bell,
   Clock, CheckCircle2, PlayCircle, Download, AlertCircle, ArrowRight, Bot, Send,
-  Upload, Search, Smartphone
+  Upload, Search, Smartphone, Sparkles, Check
 } from "lucide-react";
+import raquelImg from "@/assets/raquel.jpg";
 
-type TabId = "agenda" | "evolucao" | "exercicios" | "comunicacao" | "financeiro" | "documentos" | "notificacoes";
+type TabId = "agenda" | "evolucao" | "exercicios" | "comunicacao" | "planos" | "financeiro" | "documentos" | "notificacoes";
 
 const tabs: { id: TabId; label: string; icon: any }[] = [
   { id: "agenda", label: "Agenda e consultas", icon: Calendar },
   { id: "evolucao", label: "Evolução clínica", icon: TrendingUp },
   { id: "exercicios", label: "Plano de exercícios", icon: Dumbbell },
   { id: "comunicacao", label: "Comunicação", icon: MessageSquare },
+  { id: "planos", label: "Planos", icon: Sparkles },
   { id: "financeiro", label: "Financeiro", icon: CreditCard },
   { id: "documentos", label: "Documentos", icon: FileText },
   { id: "notificacoes", label: "Notificações", icon: Bell },
@@ -66,6 +68,7 @@ export default function CentroDeCuidados() {
             {tab === "evolucao" && <Evolucao />}
             {tab === "exercicios" && <Exercicios />}
             {tab === "comunicacao" && <Comunicacao />}
+            {tab === "planos" && <Planos />}
             {tab === "financeiro" && <Financeiro />}
             {tab === "documentos" && <Documentos />}
             {tab === "notificacoes" && <Notificacoes />}
@@ -129,6 +132,44 @@ function Agenda() {
 }
 
 function Evolucao() {
+  function downloadReport(name: string) {
+    const html = `<!doctype html><html><head><meta charset="utf-8"><title>${name}</title>
+      <style>body{font-family:Georgia,serif;color:#1a2a3a;max-width:720px;margin:40px auto;padding:0 24px;line-height:1.6}
+      h1{font-size:28px;border-bottom:2px solid #7a8c6f;padding-bottom:8px}
+      h2{color:#7a8c6f;margin-top:32px;font-size:18px;text-transform:uppercase;letter-spacing:.1em}
+      table{width:100%;border-collapse:collapse;margin:12px 0}
+      th,td{border-bottom:1px solid #e5e1d8;padding:8px;text-align:left;font-size:14px}
+      .meta{color:#7a8c6f;font-size:12px;letter-spacing:.15em;text-transform:uppercase}
+      .footer{margin-top:48px;font-size:11px;color:#888;border-top:1px solid #ddd;padding-top:12px}</style>
+    </head><body>
+      <div class="meta">Instituto Evolução · Relatório clínico</div>
+      <h1>${name}</h1>
+      <p><strong>Paciente:</strong> João Silva &nbsp; · &nbsp; <strong>Profissional:</strong> Dra. Lima (CREFITO 12345-F)</p>
+      <h2>Avaliação subjetiva</h2>
+      <p>Paciente refere melhora progressiva da dor lombar, com escala EVA reduzida de 8 para 2. Relata maior facilidade nas atividades de vida diária, ausência de irradiação e sono mais reparador.</p>
+      <h2>Medidas funcionais</h2>
+      <table><tr><th>Medida</th><th>Inicial</th><th>Atual</th><th>Δ</th></tr>
+        <tr><td>Dor (EVA 0–10)</td><td>8</td><td>2</td><td>−75%</td></tr>
+        <tr><td>Mobilidade lombar (°)</td><td>45°</td><td>110°</td><td>+144%</td></tr>
+        <tr><td>Força isométrica de glúteo (kg)</td><td>12</td><td>28</td><td>+133%</td></tr>
+        <tr><td>Teste de equilíbrio unipodal (s)</td><td>8</td><td>32</td><td>+300%</td></tr>
+      </table>
+      <h2>Plano para o próximo ciclo</h2>
+      <ul><li>Progressão de carga em agachamento e stiff (1 RIR).</li>
+      <li>Manutenção da mobilidade diária (5 min · 3 exercícios).</li>
+      <li>Reavaliação em 30 dias com novo teste isométrico.</li></ul>
+      <h2>Conduta</h2>
+      <p>Manter frequência de 2x/semana de fisioterapia + 3x/semana de treino na academia, com integração da equipe médica.</p>
+      <div class="footer">Documento gerado automaticamente pelo Centro de Cuidados — Instituto Evolução · Limeira/SP</div>
+    </body></html>`;
+    const blob = new Blob([html], { type: "text/html;charset=utf-8" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = name.replace(/[^\w\-]+/g, "_") + ".html";
+    document.body.appendChild(a); a.click(); a.remove();
+    URL.revokeObjectURL(url);
+  }
   return (
     <div>
       <SectionTitle icon={TrendingUp} title="Evolução clínica" subtitle="Relatórios, progresso e comparativos antes/depois." />
@@ -141,13 +182,20 @@ function Evolucao() {
           </div>
         ))}
       </div>
-      <h3 className="text-xs tracking-[0.2em] uppercase text-sage mb-4">Relatórios do fisioterapeuta</h3>
-      {["Relatório quinzenal — abril/2026", "Avaliação de admissão", "Relatório mensal — março/2026"].map(r => (
+      <h3 className="text-xs tracking-[0.2em] uppercase text-sage mb-4">Relatórios padrão</h3>
+      {[
+        "Avaliação de admissão",
+        "Relatório quinzenal — abril/2026",
+        "Relatório mensal — março/2026",
+        "Reavaliação trimestral",
+        "Relatório de alta",
+      ].map(r => (
         <div key={r} className="flex items-center justify-between py-4 border-b border-border">
           <span className="text-sm">{r}</span>
-          <button className="text-xs text-sage flex items-center gap-1.5"><Download className="w-3.5 h-3.5" />Baixar</button>
+          <button onClick={() => downloadReport(r)} className="text-xs text-sage flex items-center gap-1.5 hover:text-navy transition-colors"><Download className="w-3.5 h-3.5" />Baixar</button>
         </div>
       ))}
+      <p className="mt-4 text-xs text-muted-foreground">Os relatórios são gerados a partir de modelos padrão preenchidos pela equipe clínica. Para versões em PDF assinadas, fale com a recepção.</p>
     </div>
   );
 }
@@ -190,32 +238,45 @@ function Exercicios() {
 
 function Comunicacao() {
   const [messages, setMessages] = useState<{ from: "user" | "bot"; text: string }[]>([
-    { from: "bot", text: "Olá! Sou o assistente do Instituto Evolução. Posso te ajudar com dúvidas sobre exercícios, frequência, dor pós-treino e cuidados gerais. Em que posso ajudar?" },
+    { from: "bot", text: "Oi! Eu sou a Raquel, do Instituto Evolução 💚 Posso te ajudar com dúvidas sobre exercícios, dor, frequência, alimentação e cuidados pós-consulta. O que você gostaria de saber?" },
   ]);
   const [draft, setDraft] = useState("");
-  function send() {
-    const t = draft.trim();
+  const [typing, setTyping] = useState(false);
+  async function send(prefilled?: string) {
+    const t = (prefilled ?? draft).trim();
     if (!t) return;
-    const reply = botReply(t);
-    setMessages(m => [...m, { from: "user", text: t }, { from: "bot", text: reply }]);
+    setMessages(m => [...m, { from: "user", text: t }]);
     setDraft("");
+    setTyping(true);
+    const reply = await raquelReply(t);
+    setTyping(false);
+    setMessages(m => [...m, { from: "bot", text: reply }]);
   }
   return (
     <div>
       <SectionTitle icon={MessageSquare} title="Comunicação direta" subtitle="Chat com a clínica, dúvidas pós-consulta e abertura de chamados." />
       <div className="grid lg:grid-cols-[1fr_320px] gap-6">
         <div className="border border-border h-[460px] flex flex-col bg-white">
-          <div className="border-b border-border px-5 py-3 flex items-center gap-2 bg-cream/40">
-            <Bot className="w-4 h-4 text-sage" />
-            <span className="text-sm font-medium text-navy">Assistente IEV</span>
-            <span className="ml-auto text-[10px] tracking-[0.2em] uppercase text-sage">Online</span>
+          <div className="border-b border-border px-5 py-3 flex items-center gap-3 bg-cream/40">
+            <img src={raquelImg} alt="Raquel" className="w-10 h-10 rounded-full object-cover border border-sage/30" />
+            <div>
+              <div className="text-sm font-medium text-navy leading-tight">Raquel</div>
+              <div className="text-[10px] text-muted-foreground">Atendimento Instituto Evolução</div>
+            </div>
+            <span className="ml-auto flex items-center gap-1.5 text-[10px] tracking-[0.2em] uppercase text-sage"><span className="w-1.5 h-1.5 rounded-full bg-sage animate-pulse" /> Online</span>
           </div>
           <div className="flex-1 p-6 space-y-3 overflow-auto bg-cream/30">
             {messages.map((m, i) => (
-              <div key={i} className={`p-3 max-w-md text-sm ${m.from === "bot" ? "bg-white border border-border" : "bg-sage/15 ml-auto"}`}>
-                {m.text}
+              <div key={i} className={`flex gap-2 ${m.from === "user" ? "justify-end" : ""}`}>
+                {m.from === "bot" && <img src={raquelImg} alt="" className="w-7 h-7 rounded-full object-cover shrink-0 mt-1" />}
+                <div className={`p-3 max-w-md text-sm whitespace-pre-wrap ${m.from === "bot" ? "bg-white border border-border" : "bg-sage/15"}`}>{m.text}</div>
               </div>
             ))}
+            {typing && (
+              <div className="flex gap-2"><img src={raquelImg} alt="" className="w-7 h-7 rounded-full object-cover" />
+                <div className="p-3 bg-white border border-border text-sm text-muted-foreground italic">Raquel está digitando…</div>
+              </div>
+            )}
           </div>
           <div className="border-t border-border p-3 flex gap-2">
             <input
@@ -225,7 +286,7 @@ function Comunicacao() {
               placeholder="Pergunte sobre exercícios, dor, frequência…"
               className="flex-1 bg-transparent outline-none text-sm px-2"
             />
-            <button onClick={send} className="text-xs tracking-[0.2em] uppercase text-sage flex items-center gap-1.5"><Send className="w-3.5 h-3.5" />Enviar</button>
+            <button onClick={() => send()} className="text-xs tracking-[0.2em] uppercase text-sage flex items-center gap-1.5"><Send className="w-3.5 h-3.5" />Enviar</button>
           </div>
         </div>
         <div className="space-y-4">
@@ -238,9 +299,9 @@ function Comunicacao() {
           <div className="p-5 border border-border bg-cream/40">
             <div className="text-[10px] tracking-[0.25em] uppercase text-sage">Sugestões de perguntas</div>
             <ul className="mt-3 space-y-2 text-sm text-navy/80">
-              <li>• Posso treinar com dor?</li>
-              <li>• Quantas vezes por semana fazer o plano?</li>
-              <li>• Como progredir a carga com segurança?</li>
+              {["Posso treinar com dor?","Quantas vezes por semana fazer o plano?","Como progredir a carga com segurança?","O que comer antes do treino?"].map(q => (
+                <li key={q}><button onClick={() => send(q)} className="text-left hover:text-sage transition-colors">• {q}</button></li>
+              ))}
             </ul>
           </div>
         </div>
@@ -249,13 +310,85 @@ function Comunicacao() {
   );
 }
 
-function botReply(q: string) {
+async function raquelReply(q: string): Promise<string> {
   const t = q.toLowerCase();
-  if (t.includes("dor")) return "Dor leve durante o exercício pode ser esperada. Se for dor aguda, persistente ou irradiada, interrompa e abra um chamado com a equipe pelo WhatsApp.";
-  if (t.includes("freq") || t.includes("vez")) return "A frequência recomendada está descrita ao lado de cada exercício no seu plano. Em geral, exercícios de mobilidade são diários e os de força 3x/semana.";
-  if (t.includes("carga") || t.includes("progredir") || t.includes("evolu")) return "A progressão segura segue 3 critérios: execução perfeita, ausência de dor por 48h e percepção de esforço entre 6 e 8.";
-  if (t.includes("agend") || t.includes("consulta")) return "Você pode agendar ou remarcar diretamente na aba Agenda e Consultas. Para urgências, fale no WhatsApp da clínica.";
-  return "Anotado! Para uma resposta personalizada, abra um chamado com a equipe pelo WhatsApp — eles respondem em até 2 horas úteis.";
+  const kb: { match: RegExp; reply: string }[] = [
+    { match: /(dor|doend|dói|incomod)/, reply: "Que bom que você falou comigo antes! 💚\n\nDor leve a moderada (até 3 na escala 0–10) durante o exercício é tolerável segundo as diretrizes do American College of Sports Medicine. Mas se a dor for aguda, irradiada ou persistir por mais de 24h, é sinal pra interromper.\n\nQuer que eu abra um chamado pra equipe te ligar?" },
+    { match: /(freq|vez|por semana|quantas)/, reply: "Pelas recomendações da OMS, adultos saudáveis devem fazer:\n• 150 min/semana de atividade aeróbica moderada\n• 2x/semana de treino de força\n\nNo seu plano eu vejo mobilidade diária e fortalecimento 3x/semana — tá bem dentro do ideal! 👏" },
+    { match: /(carga|progredir|evolu|peso)/, reply: "A progressão segura segue 3 critérios da literatura:\n1) Execução tecnicamente perfeita por 2 sessões seguidas\n2) Ausência de dor nas 48h após o treino\n3) Percepção de esforço entre 6–8 (escala 0–10)\n\nQuando bater os 3, aumente no máx. 5–10% da carga. Sem pressa! 😉" },
+    { match: /(agend|consulta|hora)/, reply: "Você pode agendar ou remarcar direto na aba Agenda e Consultas aqui do portal. Para urgências, abra um chamado no WhatsApp ao lado!" },
+    { match: /(comer|aliment|nutri|antes do treino)/, reply: "Pelas diretrizes da SBME (Sociedade Brasileira de Medicina do Esporte):\n• 1–2h antes: carboidrato de fácil digestão (banana, pão, batata-doce)\n• Pós-treino (até 1h): proteína + carboidrato (ex.: ovos + tapioca)\n• Hidratação: 500ml até 2h antes\n\nSe quiser plano individualizado, posso agendar com a nutri! 🥗" },
+    { match: /(água|hidrat)/, reply: "A recomendação geral é 35ml/kg/dia. Para 70kg dá ~2,5L. Em dias de treino, some +500ml por hora de atividade. 💧" },
+    { match: /(sono|dormir)/, reply: "Sono é parte do tratamento! A National Sleep Foundation recomenda 7–9h por noite para adultos. Sono ruim = mais dor, menos recuperação. Quer dicas de higiene do sono?" },
+    { match: /(pilates|alonga|mobil)/, reply: "Mobilidade e Pilates clínico funcionam melhor antes do treino de força (5–10 min) e como sessão dedicada 2x/semana. ✨" },
+    { match: /(estress|ansied|cansa)/, reply: "Movimento regular é hoje considerado tratamento de primeira linha para ansiedade leve a moderada (revisão JAMA 2023). Movimento + sono + alimentação fazem mais que muito remédio." },
+  ];
+  await new Promise(r => setTimeout(r, 700 + Math.random() * 600));
+  for (const k of kb) if (k.match.test(t)) return k.reply;
+  return "Boa pergunta! 🤔 Vou pesquisar nas nossas referências e te respondo melhor. Pra um plano personalizado, vale falar direto com a equipe — quer que eu abra um chamado no WhatsApp?";
+}
+
+function Planos() {
+  const planos = [
+    { nome: "Essencial", preco: "R$ 590", periodo: "/mês", destaque: false,
+      desc: "Para quem quer começar a se cuidar com qualidade.",
+      itens: ["1 consulta médica/mês", "4 sessões de fisio ou pilates", "Acesso ao Centro de Cuidados", "Suporte por WhatsApp"] },
+    { nome: "Cuidado Integral", preco: "R$ 1.290", periodo: "/mês", destaque: true,
+      desc: "O modelo mais escolhido — cuidado completo e contínuo.",
+      itens: ["Consultas médicas multidisciplinares", "8 sessões fisio/pilates", "Academia + personal incluído", "Avaliação nutricional trimestral", "Relatórios mensais"] },
+    { nome: "Performance Premium", preco: "R$ 2.190", periodo: "/mês", destaque: false,
+      desc: "Atenção máxima, para alta performance e longevidade.",
+      itens: ["Tudo do Cuidado Integral", "Acompanhamento individual semanal", "Avaliação biomecânica trimestral", "Hidroterapia inclusa", "Atendimento prioritário"] },
+    { nome: "TotalPass / Gympass", preco: "Conforme convênio", periodo: "", destaque: false,
+      desc: "12 sessões mensais via seu benefício corporativo.",
+      itens: ["12 sessões fisio ou pilates", "Acompanhamento clínico básico", "Acesso ao app de exercícios"] },
+  ];
+  const total = 12;
+  const usadas = 7;
+  const restantes = total - usadas;
+  return (
+    <div>
+      <SectionTitle icon={Sparkles} title="Planos" subtitle="Escolha o cuidado que cabe na sua rotina — todos com integração total da equipe." />
+      <div className="border border-sage/30 bg-sage/5 p-6 mb-10">
+        <div className="flex items-center justify-between gap-4 flex-wrap">
+          <div>
+            <div className="text-[10px] tracking-[0.25em] uppercase text-sage">Seu plano · TotalPass</div>
+            <h4 className="mt-1 font-display text-2xl text-navy">Sessões do mês</h4>
+            <p className="text-sm text-muted-foreground mt-1">Você tem direito a {total} sessões mensais. Usadas: <strong className="text-navy">{usadas}</strong> · Restantes: <strong className="text-sage">{restantes}</strong></p>
+          </div>
+          <div className="text-right">
+            <div className="font-display text-4xl text-sage">{restantes}<span className="text-xl text-muted-foreground">/{total}</span></div>
+            <div className="text-[10px] tracking-[0.2em] uppercase text-muted-foreground">disponíveis</div>
+          </div>
+        </div>
+        <div className="mt-5 flex gap-1.5">
+          {Array.from({ length: total }).map((_, i) => (
+            <div key={i} className={`flex-1 h-2 ${i < usadas ? "bg-sage" : "bg-sage/15"}`} />
+          ))}
+        </div>
+        <div className="mt-3 text-xs text-muted-foreground">Ciclo atual: 01 mai a 31 mai. Sessões zeradas a cada novo mês.</div>
+      </div>
+      <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
+        {planos.map(p => (
+          <div key={p.nome} className={`border p-6 flex flex-col ${p.destaque ? "border-sage bg-sage/5 relative" : "border-border bg-white"}`}>
+            {p.destaque && <span className="absolute -top-3 left-6 text-[9px] tracking-[0.25em] uppercase bg-sage text-white px-3 py-1">Mais escolhido</span>}
+            <h3 className="font-display text-xl text-navy">{p.nome}</h3>
+            <p className="text-xs text-muted-foreground mt-1 min-h-[36px]">{p.desc}</p>
+            <div className="mt-4 flex items-baseline gap-1">
+              <span className="font-display text-3xl text-navy">{p.preco}</span>
+              <span className="text-xs text-muted-foreground">{p.periodo}</span>
+            </div>
+            <ul className="mt-5 space-y-2 flex-1">
+              {p.itens.map(i => (
+                <li key={i} className="text-xs text-muted-foreground flex gap-2"><Check className="w-3.5 h-3.5 text-sage shrink-0 mt-0.5" /><span>{i}</span></li>
+              ))}
+            </ul>
+            <a href={WHATSAPP_LINK} target="_blank" rel="noopener" className={`mt-6 text-[10px] tracking-[0.25em] uppercase text-center py-3 transition-colors ${p.destaque ? "bg-navy text-white hover:bg-sage" : "border border-sage text-sage hover:bg-sage hover:text-white"}`}>Quero esse</a>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
 }
 
 function Financeiro() {
@@ -334,7 +467,40 @@ function Documentos() {
 }
 
 function Notificacoes() {
-  const [pushEnabled, setPushEnabled] = useState(true);
+  const [pushEnabled, setPushEnabled] = useState<boolean>(() => {
+    if (typeof window === "undefined") return true;
+    return localStorage.getItem("iev_push") !== "off";
+  });
+  const [prefs, setPrefs] = useState<Record<string, boolean>>(() => {
+    const saved = typeof window !== "undefined" ? localStorage.getItem("iev_push_prefs") : null;
+    return saved ? JSON.parse(saved) : { consultas: true, exercicios: true, exames: true, avisos: true };
+  });
+  useEffect(() => { localStorage.setItem("iev_push", pushEnabled ? "on" : "off"); }, [pushEnabled]);
+  useEffect(() => { localStorage.setItem("iev_push_prefs", JSON.stringify(prefs)); }, [prefs]);
+
+  type Notif = { id: string; icon: any; text: string; action: string; onAction: () => void };
+  const initial: Notif[] = [
+    { id: "n1", icon: Calendar, text: "Próxima consulta: quinta 14 mai · 10h00", action: "Confirmar presença",
+      onAction: () => alert("Presença confirmada! Enviamos um lembrete pra você 1h antes.") },
+    { id: "n2", icon: Dumbbell, text: "Você tem 2 exercícios pendentes hoje", action: "Ver plano",
+      onAction: () => alert("Abrindo seu plano de exercícios…") },
+    { id: "n3", icon: AlertCircle, text: "Resultados de exames disponíveis", action: "Acessar",
+      onAction: () => alert("Abrindo seus exames na aba Documentos…") },
+    { id: "n4", icon: Bell, text: "Aviso da clínica: novo horário de atendimento aos sábados", action: "Ler mais",
+      onAction: () => alert("A partir de junho, atendemos aos sábados das 8h às 14h.") },
+  ];
+  const [items, setItems] = useState<Notif[]>(initial);
+  function dismiss(id: string) { setItems(it => it.filter(i => i.id !== id)); }
+
+  async function enablePush() {
+    if (!("Notification" in window)) { alert("Seu navegador não suporta notificações push."); return; }
+    const perm = await Notification.requestPermission();
+    if (perm === "granted") {
+      setPushEnabled(true);
+      new Notification("Instituto Evolução", { body: "Pronto! Você receberá lembretes por aqui. 💚" });
+    } else { alert("Permissão de notificação negada. Ative nas configurações do navegador."); }
+  }
+
   return (
     <div>
       <SectionTitle icon={Bell} title="Lembretes e notificações" subtitle="Tudo que você não pode perder." />
@@ -343,33 +509,45 @@ function Notificacoes() {
         <div className="flex items-center gap-3">
           <Smartphone className="w-5 h-5 text-sage" />
           <div>
-            <div className="text-sm font-medium text-navy">Notificações push (mobile) — ativas</div>
-            <div className="text-xs text-muted-foreground">Você receberá lembretes de consultas, exercícios e avisos diretamente no seu celular.</div>
+            <div className="text-sm font-medium text-navy">Notificações push (mobile) — {pushEnabled ? "ativas" : "desativadas"}</div>
+            <div className="text-xs text-muted-foreground">Receba lembretes de consultas, exercícios e avisos direto no seu celular.</div>
           </div>
         </div>
         <button
-          onClick={() => setPushEnabled(p => !p)}
-          className={`text-[10px] tracking-[0.25em] uppercase px-4 py-2.5 transition-colors ${pushEnabled ? "bg-sage text-white" : "border border-sage text-sage"}`}
+          onClick={() => pushEnabled ? setPushEnabled(false) : enablePush()}
+          className={`text-[10px] tracking-[0.25em] uppercase px-4 py-2.5 transition-colors ${pushEnabled ? "bg-sage text-white hover:bg-sage/80" : "border border-sage text-sage hover:bg-sage hover:text-white"}`}
         >
-          {pushEnabled ? "Ativadas" : "Ativar"}
+          {pushEnabled ? "Ativadas · Desativar" : "Ativar agora"}
         </button>
       </div>
 
+      {/* Preferências */}
+      <div className="border border-border bg-white p-5 mb-8">
+        <div className="text-[10px] tracking-[0.25em] uppercase text-sage mb-4">O que você quer receber</div>
+        <div className="grid sm:grid-cols-2 gap-3">
+          {([["consultas","Lembretes de consultas"],["exercicios","Exercícios pendentes"],["exames","Resultados de exames"],["avisos","Avisos da clínica"]] as const).map(([k,l]) => (
+            <label key={k} className="flex items-center gap-3 text-sm text-navy cursor-pointer">
+              <input type="checkbox" checked={!!prefs[k]} onChange={e => setPrefs(p => ({ ...p, [k]: e.target.checked }))} className="accent-sage w-4 h-4" />
+              {l}
+            </label>
+          ))}
+        </div>
+      </div>
+
       <div className="space-y-3">
-        {[
-          [Calendar, "Próxima consulta: quinta 14 mai · 10h00", "Confirmar presença"],
-          [Dumbbell, "Você tem 2 exercícios pendentes hoje", "Ver plano"],
-          [AlertCircle, "Resultados de exames disponíveis", "Acessar"],
-          [Bell, "Aviso da clínica: novo horário de atendimento aos sábados", "Ler mais"],
-        ].map(([Icon, t, a], i) => {
-          const I = Icon as any;
+        {items.map(n => {
+          const I = n.icon as any;
           return (
-            <div key={i} className="flex items-center justify-between p-5 border border-border bg-cream/40">
-              <div className="flex items-center gap-4"><I className="w-5 h-5 text-sage" /><span className="text-sm text-navy">{t as string}</span></div>
-              <button className="text-[10px] tracking-[0.2em] uppercase text-sage">{a as string} →</button>
+            <div key={n.id} className="flex items-center justify-between p-5 border border-border bg-cream/40 gap-3">
+              <div className="flex items-center gap-4 min-w-0"><I className="w-5 h-5 text-sage shrink-0" /><span className="text-sm text-navy truncate">{n.text}</span></div>
+              <div className="flex items-center gap-3 shrink-0">
+                <button onClick={n.onAction} className="text-[10px] tracking-[0.2em] uppercase text-sage hover:text-navy transition-colors">{n.action} →</button>
+                <button onClick={() => dismiss(n.id)} aria-label="Dispensar" className="text-muted-foreground hover:text-navy text-xs">×</button>
+              </div>
             </div>
           );
         })}
+        {!items.length && <div className="text-sm text-muted-foreground p-8 text-center border border-dashed border-border">Tudo em dia! Sem novas notificações. ✨</div>}
       </div>
     </div>
   );

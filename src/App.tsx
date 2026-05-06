@@ -11,6 +11,7 @@ import Especialidades from "./pages/Especialidades.tsx";
 import Resultados from "./pages/Resultados.tsx";
 import Academico from "./pages/Academico.tsx";
 import News from "./pages/News.tsx";
+import NewsArticle from "./pages/NewsArticle.tsx";
 import CentroDeCuidados from "./pages/CentroDeCuidados.tsx";
 import Contato from "./pages/Contato.tsx";
 
@@ -30,6 +31,7 @@ const App = () => (
           <Route path="/resultados" element={<Resultados />} />
           <Route path="/academico" element={<Academico />} />
           <Route path="/news" element={<News />} />
+          <Route path="/news/:slug" element={<NewsArticle />} />
           <Route path="/centro-de-cuidados" element={<CentroDeCuidados />} />
           <Route path="/area-do-paciente" element={<CentroDeCuidados />} />
           <Route path="/contato" element={<Contato />} />
