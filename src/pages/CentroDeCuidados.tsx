@@ -4,9 +4,10 @@ import { CALENDLY_LINK, WHATSAPP_LINK } from "@/lib/contact";
 import {
   Calendar, TrendingUp, Dumbbell, MessageSquare, CreditCard, FileText, Bell,
   Clock, CheckCircle2, PlayCircle, Download, AlertCircle, ArrowRight, Bot, Send,
-  Upload, Search, Smartphone, Sparkles, Check
+  Upload, Search, Smartphone, Sparkles, Check, User, Lock, LogOut
 } from "lucide-react";
 import raquelImg from "@/assets/raquel.jpg";
+import logo from "@/assets/logo.png";
 
 type TabId = "agenda" | "evolucao" | "exercicios" | "comunicacao" | "planos" | "financeiro" | "documentos" | "notificacoes";
 
@@ -23,6 +24,8 @@ const tabs: { id: TabId; label: string; icon: any }[] = [
 
 export default function CentroDeCuidados() {
   const [tab, setTab] = useState<TabId>("agenda");
+  const [authed, setAuthed] = useState<string | null>(() => typeof window !== "undefined" ? sessionStorage.getItem("iev_cpf") : null);
+  if (!authed) return <LoginGate onLogin={(cpf) => { sessionStorage.setItem("iev_cpf", cpf); setAuthed(cpf); }} />;
   return (
     <Layout>
       {/* Header */}
@@ -33,9 +36,9 @@ export default function CentroDeCuidados() {
           <p className="mt-5 max-w-2xl text-white/55 leading-relaxed">
             Sua jornada completa em um único lugar — agenda, evolução clínica, plano de exercícios, comunicação direta e tudo que envolve o seu cuidado.
           </p>
-          <div className="mt-8 flex flex-wrap gap-4">
-            <button className="btn-primary">Acessar minha conta</button>
-            <button className="btn-outline-light">Primeiro acesso <ArrowRight className="w-4 h-4" /></button>
+          <div className="mt-8 flex flex-wrap gap-4 items-center">
+            <span className="text-xs tracking-[0.2em] uppercase text-white/60">CPF: {authed.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, "$1.$2.$3-$4")}</span>
+            <button onClick={() => { sessionStorage.removeItem("iev_cpf"); setAuthed(null); }} className="btn-outline-light"><LogOut className="w-4 h-4" />Sair</button>
           </div>
         </div>
       </section>
@@ -73,6 +76,82 @@ export default function CentroDeCuidados() {
             {tab === "documentos" && <Documentos />}
             {tab === "notificacoes" && <Notificacoes />}
           </div>
+        </div>
+      </section>
+    </Layout>
+  );
+}
+
+function LoginGate({ onLogin }: { onLogin: (cpf: string) => void }) {
+  const [mode, setMode] = useState<"login" | "primeiro">("login");
+  const [cpf, setCpf] = useState("");
+  const [pwd, setPwd] = useState("");
+  const [err, setErr] = useState("");
+  function maskCpf(v: string) {
+    const d = v.replace(/\D/g, "").slice(0, 11);
+    return d.replace(/(\d{3})(\d{3})?(\d{3})?(\d{2})?/, (_, a, b, c, e) => [a, b, c, e].filter(Boolean).join(".").replace(/\.(\d{2})$/, "-$1"));
+  }
+  function submit(e: React.FormEvent) {
+    e.preventDefault();
+    const digits = cpf.replace(/\D/g, "");
+    if (digits.length !== 11) { setErr("Informe um CPF válido (11 dígitos)."); return; }
+    if (mode === "primeiro") {
+      const ok = pwd.length >= 6;
+      if (!ok) { setErr("Crie uma senha com pelo menos 6 caracteres."); return; }
+      // simula cadastro: aceita primeiros 3 dígitos como senha provisória
+      onLogin(digits);
+      return;
+    }
+    if (pwd !== digits.slice(0, 3)) { setErr("Senha incorreta. Use os 3 primeiros dígitos do seu CPF no primeiro acesso."); return; }
+    onLogin(digits);
+  }
+  return (
+    <Layout solidNav>
+      <section className="min-h-[80vh] bg-navy flex items-center py-24">
+        <div className="container-x max-w-md mx-auto">
+          <div className="bg-cream p-8 md:p-10">
+            <div className="flex justify-center mb-6">
+              <img src={logo} alt="Instituto Evolução" className="h-16 w-auto mix-blend-multiply" />
+            </div>
+            <div className="text-center text-[10px] tracking-[0.3em] uppercase text-muted-foreground">Centro de Cuidados</div>
+            <h1 className="mt-5 font-display text-3xl text-navy">Área do Paciente</h1>
+            <p className="text-sm text-muted-foreground mt-1">
+              {mode === "login" ? "Entre com suas credenciais de acesso" : "Crie sua conta — informe seu CPF e defina uma senha"}
+            </p>
+            <form onSubmit={submit} className="mt-6 space-y-4">
+              <div>
+                <label className="text-[10px] tracking-[0.2em] uppercase text-muted-foreground">CPF</label>
+                <div className="mt-1.5 flex items-center gap-2 bg-white border border-border px-4 py-3 focus-within:border-sage">
+                  <User className="w-4 h-4 text-muted-foreground" />
+                  <input value={cpf} onChange={e => { setCpf(maskCpf(e.target.value)); setErr(""); }} placeholder="000.000.000-00" inputMode="numeric" className="flex-1 bg-transparent outline-none text-sm" />
+                </div>
+              </div>
+              <div>
+                <label className="text-[10px] tracking-[0.2em] uppercase text-muted-foreground">{mode === "login" ? "Senha" : "Crie sua senha"}</label>
+                <div className="mt-1.5 flex items-center gap-2 bg-white border border-border px-4 py-3 focus-within:border-sage">
+                  <Lock className="w-4 h-4 text-muted-foreground" />
+                  <input type="password" value={pwd} onChange={e => { setPwd(e.target.value); setErr(""); }} placeholder={mode === "login" ? "3 primeiros dígitos do CPF" : "mínimo 6 caracteres"} className="flex-1 bg-transparent outline-none text-sm" />
+                </div>
+              </div>
+              {err && <p className="text-xs text-red-600">{err}</p>}
+              <button type="submit" className="w-full bg-navy text-white py-3.5 text-[11px] tracking-[0.25em] uppercase hover:bg-sage transition-colors flex items-center justify-center gap-2">
+                {mode === "login" ? "Entrar" : "Criar conta"} <ArrowRight className="w-3.5 h-3.5" />
+              </button>
+            </form>
+            <div className="mt-5 pt-5 border-t border-border text-center text-xs text-muted-foreground">
+              {mode === "login" ? (
+                <>Primeiro acesso? <button onClick={() => { setMode("primeiro"); setErr(""); }} className="text-sage hover:underline">Cadastre-se aqui</button></>
+              ) : (
+                <>Já tem cadastro? <button onClick={() => { setMode("login"); setErr(""); }} className="text-sage hover:underline">Entrar</button></>
+              )}
+            </div>
+            {mode === "login" && (
+              <div className="mt-4 text-center text-[11px] text-muted-foreground bg-sage/10 p-3">
+                <strong className="text-sage">Primeiro acesso:</strong> use os <strong>3 primeiros dígitos do seu CPF</strong> como senha provisória.
+              </div>
+            )}
+          </div>
+          <div className="text-center mt-6 text-xs text-white/50">© {new Date().getFullYear()} Instituto Evolução · Fitness · Health</div>
         </div>
       </section>
     </Layout>
