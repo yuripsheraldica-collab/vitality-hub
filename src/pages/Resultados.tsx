@@ -9,7 +9,7 @@ type SocialProof = {
   summary: string;
   highlight: string;
   highlightLabel: string;
-  videoSrc?: string;
+  youtubeId?: string;
 };
 
 const proofs: SocialProof[] = [
@@ -20,7 +20,7 @@ const proofs: SocialProof[] = [
     summary: "A jornada do Felipe mostra como o trabalho integrado entre clínica, fisioterapia e movimento pode devolver autonomia, confiança e qualidade de vida — sem atalhos, com método.",
     highlight: "100%",
     highlightLabel: "retorno funcional",
-    videoSrc: "/videos/prova-social-1-felipe.mp4",
+    youtubeId: "rPY43NNhqac",
   },
   {
     title: "Instituto Evolução · Reabilitação do Renan",
@@ -29,16 +29,16 @@ const proofs: SocialProof[] = [
     summary: "Reabilitação após cirurgia conduzida com protocolos progressivos, monitoramento clínico e prescrição precisa de exercícios — do primeiro dia ao alto desempenho.",
     highlight: "+ força",
     highlightLabel: "controle motor restaurado",
-    videoSrc: "/videos/prova-social-2-renan.mp4",
+    youtubeId: "y1E9YxceiaY",
   },
   {
-    title: "Instituto Evolução · Tendão de Aquiles",
-    patient: "Caso clínico",
+    title: "Roberta · Tendão de Aquiles",
+    patient: "Roberta",
     area: "Lesão tendínea",
     summary: "Tratamento conservador de lesão no tendão de Aquiles com avaliação biomecânica, terapia manual e reeducação de carga — recuperação segura e sem cirurgia.",
     highlight: "Sem cirurgia",
     highlightLabel: "tratamento conservador",
-    videoSrc: "/videos/prova-social-3-tendao-aquiles.mp4",
+    youtubeId: "q9vTvfY0WSA",
   },
   {
     title: "Gabriel · Corinthians",
@@ -47,7 +47,7 @@ const proofs: SocialProof[] = [
     summary: "Atleta acompanhado por equipe multidisciplinar do Instituto Evolução. Ciência, treino e cuidado clínico aplicados à alta performance.",
     highlight: "Atleta profissional",
     highlightLabel: "performance & saúde",
-    videoSrc: "/videos/prova-social-4-gabriel-corinthians.mp4",
+    youtubeId: "b5--xgR1-8M",
   },
 ];
 
@@ -65,13 +65,13 @@ export default function Resultados() {
           {proofs.map((p, i) => (
             <article key={p.title} className={`grid lg:grid-cols-2 gap-10 items-center ${i % 2 === 1 ? "lg:[&>*:first-child]:order-2" : ""}`}>
               <div className="relative aspect-video bg-navy overflow-hidden border border-border">
-                {p.videoSrc ? (
-                  <video
-                    src={p.videoSrc}
+                {p.youtubeId ? (
+                  <iframe
+                    src={`https://www.youtube.com/embed/${p.youtubeId}`}
                     title={p.title}
-                    className="w-full h-full object-cover"
-                    controls
-                    preload="metadata"
+                    className="w-full h-full"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
                   />
                 ) : (
                   <div className="w-full h-full flex flex-col items-center justify-center text-white/70 gap-3">
