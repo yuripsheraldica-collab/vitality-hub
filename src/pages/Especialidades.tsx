@@ -2,7 +2,7 @@ import Layout from "@/components/site/Layout";
 import PageHero from "@/components/site/PageHero";
 import {
   Stethoscope, Activity, Dumbbell, Sparkles, Heart, Apple,
-  ShieldPlus, HeartPulse, Hourglass, Scan, Baby
+  ShieldPlus, HeartPulse, Hourglass, Scan, Baby, Brain, Bone, Droplets, Hand, Flame
 } from "lucide-react";
 
 const items: [any, string, string, string, string[]][] = [
@@ -36,6 +36,21 @@ const items: [any, string, string, string, string[]][] = [
   [Apple, "Nutrição", "Nutrição",
     "Reeducação alimentar funcional e esportiva, com plano realista e acompanhamento próximo. Construímos hábitos sustentáveis em vez de dietas restritivas.",
     ["Funcional, clínica e esportiva", "Plano alimentar individualizado", "Acompanhamento contínuo", "Estratégias para a vida real"]],
+  [Flame, "Médica", "Endocrinologia",
+    "Cuidado das doenças hormonais e metabólicas — diabetes, tireoide, obesidade e saúde reprodutiva. Avaliação ampla com integração nutricional.",
+    ["Diabetes e resistência insulínica", "Tireoide e suprarrenal", "Saúde hormonal feminina e masculina", "Manejo da obesidade"]],
+  [Bone, "Médica", "Ortopedia",
+    "Avaliação e tratamento de lesões e doenças do sistema musculoesquelético, com integração total à fisioterapia e academia para recuperação completa.",
+    ["Lesões articulares e ligamentares", "Coluna e postura", "Pós-operatório integrado", "Medicina esportiva"]],
+  [Brain, "Saúde mental", "Psicologia",
+    "Apoio psicológico humanizado para adultos e famílias. Da ansiedade ao manejo da dor crônica, integrando saúde mental ao cuidado físico.",
+    ["Terapia individual", "Manejo de ansiedade e estresse", "Suporte em dor crônica", "Saúde mental integrada"]],
+  [Droplets, "Reabilitação", "Hidroterapia",
+    "Reabilitação aquática em piscina aquecida, ideal para pós-operatório, dor crônica, terceira idade e atletas. Baixo impacto, alto resultado.",
+    ["Piscina aquecida exclusiva", "Pós-operatório e dor crônica", "Reabilitação para a maturidade", "Acompanhamento individualizado"]],
+  [Hand, "Bem-estar", "Massoterapia",
+    "Terapias manuais para alívio de tensão, recuperação muscular e bem-estar. Massagem desportiva, relaxante e drenagem linfática.",
+    ["Massagem desportiva", "Drenagem linfática", "Massagem relaxante", "Liberação miofascial"]],
 ];
 
 export default function Especialidades() {
