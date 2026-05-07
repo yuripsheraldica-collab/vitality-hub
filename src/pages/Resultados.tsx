@@ -63,11 +63,11 @@ export default function Resultados() {
       <section className="py-20 bg-cream">
         <div className="container-x space-y-14">
           {proofs.map((p, i) => (
-            <article key={p.title} className={`grid lg:grid-cols-2 gap-10 items-center ${i % 2 === 1 ? "lg:[&>*:first-child]:order-2" : ""}`}>
-              <div className="relative aspect-video bg-navy overflow-hidden border border-border">
+            <article key={p.title} className={`grid lg:grid-cols-[auto_1fr] gap-10 items-center justify-center ${i % 2 === 1 ? "lg:[&>*:first-child]:order-2" : ""}`}>
+              <div className="relative aspect-[9/16] w-full max-w-[340px] mx-auto bg-navy overflow-hidden border border-border rounded-xl">
                 {p.youtubeId ? (
                   <iframe
-                    src={`https://www.youtube.com/embed/${p.youtubeId}`}
+                    src={`https://www.youtube.com/embed/${p.youtubeId}?loop=1&playlist=${p.youtubeId}`}
                     title={p.title}
                     className="w-full h-full"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
