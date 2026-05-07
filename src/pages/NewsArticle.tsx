@@ -8,7 +8,7 @@ export default function NewsArticle() {
   const article = newsArticles.find(a => slugify(a.title) === slug);
   if (!article) {
     return (
-      <Layout>
+      <Layout solidNav>
         <section className="pt-40 pb-20 container-x">
           <h1 className="font-display text-3xl text-navy">Matéria não encontrada</h1>
           <Link to="/news" className="mt-4 inline-block text-sage">← Voltar para News</Link>
