@@ -17,7 +17,7 @@ const proofs: SocialProof[] = [
     title: "Instituto Evolução · Paciente Felipe",
     patient: "Felipe",
     area: "Reabilitação ortopédica",
-    summary: "A jornada do Felipe mostra como o trabalho integrado entre clínica, fisioterapia e movimento pode devolver autonomia, confiança e qualidade de vida — sem atalhos, com método.",
+    summary: "A jornada do Felipe mostra como o trabalho integrado entre clínica, fisioterapia e movimento pode devolver autonomia, confiança e qualidade de vida. Um processo conduzido com método, escuta e progressão segura — do diagnóstico funcional ao retorno completo às atividades.",
     highlight: "100%",
     highlightLabel: "retorno funcional",
     youtubeId: "rPY43NNhqac",
@@ -26,7 +26,7 @@ const proofs: SocialProof[] = [
     title: "Instituto Evolução · Reabilitação do Renan",
     patient: "Renan",
     area: "Pós-operatório",
-    summary: "Reabilitação após cirurgia conduzida com protocolos progressivos, monitoramento clínico e prescrição precisa de exercícios — do primeiro dia ao alto desempenho.",
+    summary: "Reabilitação pós-cirúrgica conduzida com protocolos progressivos, monitoramento clínico contínuo e prescrição precisa de exercícios. Do primeiro dia de recuperação ao retorno ao alto desempenho, cada etapa foi construída em conjunto com a equipe multidisciplinar.",
     highlight: "+ força",
     highlightLabel: "controle motor restaurado",
     youtubeId: "y1E9YxceiaY",
@@ -35,7 +35,7 @@ const proofs: SocialProof[] = [
     title: "Roberta · Tendão de Aquiles",
     patient: "Roberta",
     area: "Lesão tendínea",
-    summary: "Tratamento conservador de lesão no tendão de Aquiles com avaliação biomecânica, terapia manual e reeducação de carga — recuperação segura e sem cirurgia.",
+    summary: "Tratamento conservador de lesão no tendão de Aquiles, com avaliação biomecânica detalhada, terapia manual e reeducação progressiva de carga. Uma recuperação segura, sem cirurgia, devolvendo confiança no movimento e no esporte.",
     highlight: "Sem cirurgia",
     highlightLabel: "tratamento conservador",
     youtubeId: "q9vTvfY0WSA",
@@ -44,7 +44,7 @@ const proofs: SocialProof[] = [
     title: "Gabriel · Corinthians",
     patient: "Gabriel",
     area: "Performance esportiva",
-    summary: "Atleta acompanhado por equipe multidisciplinar do Instituto Evolução. Ciência, treino e cuidado clínico aplicados à alta performance.",
+    summary: "Atleta profissional acompanhado pela equipe multidisciplinar do Instituto Evolução. Ciência, treino individualizado e cuidado clínico aplicados à alta performance — preparando corpo e mente para a exigência do esporte de elite.",
     highlight: "Atleta profissional",
     highlightLabel: "performance & saúde",
     youtubeId: "b5--xgR1-8M",
@@ -61,37 +61,42 @@ export default function Resultados() {
       />
 
       <section className="py-20 bg-cream">
-        <div className="container-x space-y-14">
-          {proofs.map((p, i) => (
-            <article key={p.title} className={`grid lg:grid-cols-[auto_1fr] gap-10 items-center justify-center ${i % 2 === 1 ? "lg:[&>*:first-child]:order-2" : ""}`}>
-              <div className="relative aspect-[9/16] w-full max-w-[340px] mx-auto bg-navy overflow-hidden border border-border rounded-xl">
-                {p.youtubeId ? (
-                  <iframe
-                    src={`https://www.youtube.com/embed/${p.youtubeId}?loop=1&playlist=${p.youtubeId}`}
-                    title={p.title}
-                    className="w-full h-full"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowFullScreen
-                  />
-                ) : (
-                  <div className="w-full h-full flex flex-col items-center justify-center text-white/70 gap-3">
-                    <PlayCircle className="w-14 h-14" strokeWidth={1} />
-                    <span className="text-[10px] tracking-[0.25em] uppercase">Vídeo em breve</span>
+        <div className="container-x space-y-20">
+          {proofs.map((p, i) => {
+            const reverse = i % 2 === 1;
+            return (
+              <article key={p.title} className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+                <div className={`flex justify-center ${reverse ? "lg:order-2" : "lg:order-1"}`}>
+                  <div className="relative aspect-[9/16] w-full max-w-[320px] bg-navy overflow-hidden border border-border rounded-xl shadow-lg">
+                    {p.youtubeId ? (
+                      <iframe
+                        src={`https://www.youtube.com/embed/${p.youtubeId}?loop=1&playlist=${p.youtubeId}`}
+                        title={p.title}
+                        className="w-full h-full"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowFullScreen
+                      />
+                    ) : (
+                      <div className="w-full h-full flex flex-col items-center justify-center text-white/70 gap-3">
+                        <PlayCircle className="w-14 h-14" strokeWidth={1} />
+                        <span className="text-[10px] tracking-[0.25em] uppercase">Vídeo em breve</span>
+                      </div>
+                    )}
                   </div>
-                )}
-              </div>
-              <div>
-                <span className="text-[10px] tracking-[0.25em] uppercase text-sage">Prova social {String(i + 1).padStart(2, "0")} · {p.area}</span>
-                <h2 className="mt-3 font-display text-3xl md:text-4xl text-navy leading-tight">{p.title}</h2>
-                <Quote className="w-6 h-6 text-sage/40 mt-6" />
-                <p className="mt-3 text-muted-foreground leading-relaxed">{p.summary}</p>
-                <div className="mt-7 inline-flex items-baseline gap-3 border-t border-border pt-5">
-                  <span className="font-display text-3xl text-sage">{p.highlight}</span>
-                  <span className="text-xs text-muted-foreground">{p.highlightLabel}</span>
                 </div>
-              </div>
-            </article>
-          ))}
+                <div className={reverse ? "lg:order-1" : "lg:order-2"}>
+                  <span className="text-[10px] tracking-[0.25em] uppercase text-sage">Prova social {String(i + 1).padStart(2, "0")} · {p.area}</span>
+                  <h2 className="mt-3 font-display text-3xl md:text-4xl text-navy leading-tight">{p.title}</h2>
+                  <Quote className="w-6 h-6 text-sage/40 mt-6" />
+                  <p className="mt-3 text-muted-foreground leading-relaxed">{p.summary}</p>
+                  <div className="mt-7 inline-flex items-baseline gap-3 border-t border-border pt-5">
+                    <span className="font-display text-3xl text-sage">{p.highlight}</span>
+                    <span className="text-xs text-muted-foreground">{p.highlightLabel}</span>
+                  </div>
+                </div>
+              </article>
+            );
+          })}
         </div>
       </section>
 
