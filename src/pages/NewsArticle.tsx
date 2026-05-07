@@ -17,7 +17,7 @@ export default function NewsArticle() {
     );
   }
   return (
-    <Layout>
+    <Layout solidNav>
       <article className="pt-32 pb-20 bg-cream">
         <div className="container-x max-w-3xl">
           <Link to="/news" className="inline-flex items-center gap-2 text-[10px] tracking-[0.25em] uppercase text-sage mb-8"><ArrowLeft className="w-3.5 h-3.5" /> Voltar para News</Link>
