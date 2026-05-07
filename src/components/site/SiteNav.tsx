@@ -15,8 +15,9 @@ const links = [
   { to: "/contato", label: "Contato" },
 ];
 
-export default function SiteNav() {
-  const [scrolled, setScrolled] = useState(false);
+export default function SiteNav({ solid = false }: { solid?: boolean }) {
+  const [scrolledRaw, setScrolled] = useState(false);
+  const scrolled = solid || scrolledRaw;
   const [open, setOpen] = useState(false);
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40);
