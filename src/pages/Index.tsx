@@ -49,10 +49,10 @@ export default function Index() {
       <section className="bg-navy text-white border-t border-sage/10 py-20">
         <div className="container-x grid grid-cols-2 lg:grid-cols-4 gap-px bg-sage/10">
           {[
-            ["10+", "Especialidades integradas"],
+            ["15+", "Especialidades integradas"],
             ["100%", "Atendimento particular"],
             ["0", "Minutos de espera"],
-            ["01", "Lugar para tudo o que você precisa"],
+            ["Um Único", "Lugar para tudo o que você precisa"],
           ].map(([v, l]) => (
             <div key={l} className="bg-navy text-center py-12 px-6">
               <div className="font-display text-5xl md:text-6xl font-light text-white">{v}</div>
