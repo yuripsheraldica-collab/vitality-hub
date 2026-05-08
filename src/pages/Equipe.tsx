@@ -90,7 +90,15 @@ export default function Equipe() {
                   {g.members.length} {g.members.length === 1 ? "profissional" : "profissionais"}
                 </span>
               </header>
-              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-px bg-sage/10">
+              <div
+                className={`grid gap-px bg-sage/10 ${
+                  g.members.length === 1
+                    ? "md:grid-cols-1"
+                    : g.members.length === 2
+                    ? "md:grid-cols-2"
+                    : "md:grid-cols-2 lg:grid-cols-3"
+                }`}
+              >
                 {g.members.map(m => (
                   <article key={m.name} className="bg-navy p-10 hover:bg-sage/5 transition-colors">
                     <div className="w-20 h-20 rounded-full bg-sage/15 border border-sage/25 flex items-center justify-center font-display text-2xl text-sage-light italic">
