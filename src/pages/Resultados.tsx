@@ -14,6 +14,24 @@ type SocialProof = {
 
 const proofs: SocialProof[] = [
   {
+    title: "Gabriel · Corinthians",
+    patient: "Gabriel",
+    area: "Performance esportiva",
+    summary: "Atleta profissional acompanhado pela equipe multidisciplinar do Instituto Evolução. Ciência, treino individualizado e cuidado clínico aplicados à alta performance — preparando corpo e mente para a exigência do esporte de elite.",
+    highlight: "Atleta profissional",
+    highlightLabel: "performance & saúde",
+    youtubeId: "b5--xgR1-8M",
+  },
+  {
+    title: "Luis Fernando · Retomada do movimento",
+    patient: "Luis Fernando",
+    area: "Reabilitação funcional",
+    summary: "Acompanhamento integrado de reabilitação e fortalecimento, com retomada progressiva da capacidade funcional. Um trabalho de paciência, escuta e ciência aplicada — devolvendo confiança e qualidade de movimento.",
+    highlight: "Retomada completa",
+    highlightLabel: "função e confiança",
+    youtubeId: "dHtqWg0AB8I",
+  },
+  {
     title: "Instituto Evolução · Paciente Felipe",
     patient: "Felipe",
     area: "Reabilitação ortopédica",
@@ -41,13 +59,13 @@ const proofs: SocialProof[] = [
     youtubeId: "q9vTvfY0WSA",
   },
   {
-    title: "Gabriel · Corinthians",
-    patient: "Gabriel",
-    area: "Performance esportiva",
-    summary: "Atleta profissional acompanhado pela equipe multidisciplinar do Instituto Evolução. Ciência, treino individualizado e cuidado clínico aplicados à alta performance — preparando corpo e mente para a exigência do esporte de elite.",
-    highlight: "Atleta profissional",
-    highlightLabel: "performance & saúde",
-    youtubeId: "b5--xgR1-8M",
+    title: "Maura · Qualidade de vida",
+    patient: "Maura",
+    area: "Cuidado integrado",
+    summary: "Acompanhamento multidisciplinar com foco em saúde, autonomia e bem-estar — um plano construído em conjunto entre clínica, movimento e nutrição, com resultados que se traduzem em mais disposição e qualidade de vida no dia a dia.",
+    highlight: "+ qualidade de vida",
+    highlightLabel: "cuidado integrado",
+    youtubeId: "J5Ivxy1U0UE",
   },
 ];
 

@@ -566,7 +566,7 @@ function Notificacoes() {
     { id: "n3", icon: AlertCircle, text: "Resultados de exames disponíveis", action: "Acessar",
       onAction: () => alert("Abrindo seus exames na aba Documentos…") },
     { id: "n4", icon: Bell, text: "Aviso da clínica: novo horário de atendimento aos sábados", action: "Ler mais",
-      onAction: () => alert("A partir de junho, atendemos aos sábados das 8h às 14h.") },
+      onAction: () => alert("Atendimento aos sábados das 08h às 12h. De segunda a sexta, das 07h às 20h.") },
   ];
   const [items, setItems] = useState<Notif[]>(initial);
   function dismiss(id: string) { setItems(it => it.filter(i => i.id !== id)); }

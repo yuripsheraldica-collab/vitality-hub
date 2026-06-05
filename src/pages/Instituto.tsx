@@ -59,23 +59,42 @@ export default function Instituto() {
             <span className="eyebrow !justify-center !mx-auto">O que nos move</span>
             <h2 className="mt-5 section-heading">Missão, visão e <em>valores</em></h2>
           </div>
-          <div className="mt-14 grid md:grid-cols-2 gap-px bg-border mb-px">
-            <div className="bg-white p-10">
-              <div className="w-12 h-12 rounded-full border border-sage/30 flex items-center justify-center"><Target className="w-5 h-5 text-sage" strokeWidth={1.5} /></div>
-              <h3 className="mt-6 font-display text-2xl text-navy">Missão</h3>
-              <p className="mt-3 text-muted-foreground leading-relaxed font-light">
-                Transformar a saúde e a performance das pessoas através de um modelo clínico integrado, baseado em ciência, movimento e acompanhamento especializado.
-              </p>
+          <div className="mt-14 grid lg:grid-cols-[auto_1fr] gap-12 lg:gap-16 items-start">
+            {/* Vertical video */}
+            <div className="mx-auto lg:mx-0 w-full max-w-[320px]">
+              <div className="relative aspect-[9/16] bg-navy overflow-hidden border border-border rounded-xl shadow-[0_30px_80px_-20px_hsl(var(--navy)/0.4)]">
+                <video
+                  src="/video-institucional.mp4"
+                  autoPlay muted loop playsInline
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              <p className="mt-4 text-center text-[10px] tracking-[0.25em] uppercase text-sage">O que nos move, em movimento</p>
             </div>
-            <div className="bg-white p-10">
-              <div className="w-12 h-12 rounded-full border border-sage/30 flex items-center justify-center"><Eye className="w-5 h-5 text-sage" strokeWidth={1.5} /></div>
-              <h3 className="mt-6 font-display text-2xl text-navy">Visão</h3>
-              <p className="mt-3 text-muted-foreground leading-relaxed font-light">
-                Consolidar-se como um centro de referência em saúde, reabilitação e performance, unindo abordagem clínica e desenvolvimento físico de forma inovadora e eficaz.
-              </p>
+            {/* Missão & Visão */}
+            <div className="space-y-6">
+              <div className="bg-white p-8 border-l-2 border-sage">
+                <div className="flex items-center gap-3">
+                  <Target className="w-5 h-5 text-sage" strokeWidth={1.5} />
+                  <h3 className="font-display text-2xl text-navy">Missão</h3>
+                </div>
+                <p className="mt-3 text-muted-foreground leading-relaxed font-light">
+                  Transformar a saúde e a performance das pessoas através de um modelo clínico integrado, baseado em ciência, movimento e acompanhamento especializado.
+                </p>
+              </div>
+              <div className="bg-white p-8 border-l-2 border-sage">
+                <div className="flex items-center gap-3">
+                  <Eye className="w-5 h-5 text-sage" strokeWidth={1.5} />
+                  <h3 className="font-display text-2xl text-navy">Visão</h3>
+                </div>
+                <p className="mt-3 text-muted-foreground leading-relaxed font-light">
+                  Consolidar-se como um centro de referência em saúde, reabilitação e performance, unindo abordagem clínica e desenvolvimento físico de forma inovadora e eficaz.
+                </p>
+              </div>
             </div>
           </div>
-          <div className="mt-12">
+          {/* Valores */}
+          <div className="mt-16">
             <div className="flex items-center gap-3 mb-8">
               <Gem className="w-5 h-5 text-sage" strokeWidth={1.5} />
               <h3 className="font-display text-2xl text-navy">Valores</h3>

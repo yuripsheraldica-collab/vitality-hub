@@ -74,7 +74,7 @@ export default function Contato() {
                 <Phone className="w-5 h-5 text-sage" />
                 <div>
                   <div className="text-[10px] tracking-[0.25em] uppercase text-sage">Horário</div>
-                  <div className="text-navy font-medium">Seg a Sáb · 08h às 20h</div>
+                  <div className="text-navy font-medium">Seg a Sex · 07h às 20h<br />Sábado · 08h às 12h</div>
                 </div>
               </div>
             </div>

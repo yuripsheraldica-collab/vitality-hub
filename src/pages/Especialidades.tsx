@@ -2,13 +2,25 @@ import Layout from "@/components/site/Layout";
 import PageHero from "@/components/site/PageHero";
 import {
   Stethoscope, Activity, Dumbbell, Sparkles, Heart, Apple,
-  ShieldPlus, HeartPulse, Hourglass, Scan, Baby, Brain, Bone, Droplets, Hand, Flame
+  ShieldPlus, HeartPulse, Hourglass, Scan, Baby, Brain, Bone, Droplets, Hand, Flame, FlaskConical, BrainCog
 } from "lucide-react";
 
 const items: [any, string, string, string, string[]][] = [
+  [Activity, "Reabilitação", "Movimento & Performance",
+    "Antiga fisioterapia — agora um núcleo completo de reabilitação, performance e movimento. Avaliação detalhada e protocolos individualizados, integrados ao time médico e à academia para acelerar resultados de forma segura.",
+    ["Fisioterapia ortopédica, esportiva e funcional", "Reabilitação pós-operatória", "Biomecânica da corrida e prevenção de lesões", "Integração com personal training e academia"]],
   [Scan, "Médica", "Dermatologia",
     "Cuidado completo da saúde da pele, dos cabelos e das unhas — do diagnóstico clínico ao acompanhamento estético. Atuamos com investigação detalhada, prevenção do câncer de pele e protocolos personalizados para cada perfil.",
     ["Dermatologia clínica e preventiva", "Acompanhamento de pele acneica e sensível", "Tratamento de manchas e fotoenvelhecimento", "Procedimentos estéticos minimamente invasivos"]],
+  [Dumbbell, "Movimento", "Academia",
+    "Espaço fitness de alto padrão com prescrição médica integrada e acompanhamento profissional contínuo. Treinos pensados para corpo, performance e longevidade.",
+    ["Personal training individualizado", "Treinamento funcional e força", "Composição corporal monitorada", "Integração com clínica e fisioterapia"]],
+  [Bone, "Médica", "Ortopedia",
+    "Avaliação e tratamento de lesões e doenças do sistema musculoesquelético, com integração total à fisioterapia e academia para recuperação completa.",
+    ["Lesões articulares e ligamentares", "Coluna e postura", "Pós-operatório integrado", "Medicina esportiva"]],
+  [Hand, "Bem-estar", "Massoterapia",
+    "Terapias manuais para alívio de tensão, recuperação muscular e bem-estar. Massagem desportiva, relaxante e drenagem linfática.",
+    ["Massagem desportiva", "Drenagem linfática", "Massagem relaxante", "Liberação miofascial"]],
   [HeartPulse, "Médica", "Vascular",
     "Avaliação e tratamento de doenças venosas e arteriais com olhar funcional e estético. Da prevenção de tromboses ao manejo de varizes, com tecnologia de ponta e seguimento contínuo.",
     ["Tratamento clínico de varizes e telangiectasias", "Doppler vascular em consultório", "Prevenção de trombose venosa", "Acompanhamento pós-procedimento"]],
@@ -24,12 +36,6 @@ const items: [any, string, string, string, string[]][] = [
   [Baby, "Médica", "Nutrologia",
     "Investigação clínica da relação entre alimentação, metabolismo e doenças. Mais que dieta: tratamento médico de obesidade, deficiências nutricionais e desordens metabólicas.",
     ["Tratamento clínico da obesidade", "Reposição de vitaminas e minerais", "Performance e composição corporal", "Acompanhamento de doenças metabólicas"]],
-  [Activity, "Reabilitação", "Fisioterapia",
-    "Reabilitação ortopédica, esportiva e funcional com avaliação detalhada e protocolos individualizados. Trabalhamos integrados ao time médico e à academia para acelerar resultados de forma segura.",
-    ["Ortopédica, esportiva e funcional", "Reabilitação pós-operatória", "Avaliação postural e biomecânica", "Técnicas manuais e terapias avançadas"]],
-  [Dumbbell, "Movimento", "Academia",
-    "Espaço fitness de alto padrão com prescrição médica integrada e acompanhamento profissional contínuo. Treinos pensados para corpo, performance e longevidade.",
-    ["Personal training individualizado", "Treinamento funcional e força", "Composição corporal monitorada", "Integração com clínica e fisioterapia"]],
   [Sparkles, "Movimento", "Pilates",
     "Pilates clínico e funcional em ambiente exclusivo, com instrutores certificados. Indicado para reabilitação, condicionamento e qualidade de vida em todas as idades.",
     ["Clínico, terapêutico e pós-lesão", "Solo e aparelhos completos", "Turmas reduzidas (máx. 4)", "Trabalho integrado com fisioterapia"]],
@@ -39,18 +45,18 @@ const items: [any, string, string, string, string[]][] = [
   [Flame, "Médica", "Endocrinologia",
     "Cuidado das doenças hormonais e metabólicas — diabetes, tireoide, obesidade e saúde reprodutiva. Avaliação ampla com integração nutricional.",
     ["Diabetes e resistência insulínica", "Tireoide e suprarrenal", "Saúde hormonal feminina e masculina", "Manejo da obesidade"]],
-  [Bone, "Médica", "Ortopedia",
-    "Avaliação e tratamento de lesões e doenças do sistema musculoesquelético, com integração total à fisioterapia e academia para recuperação completa.",
-    ["Lesões articulares e ligamentares", "Coluna e postura", "Pós-operatório integrado", "Medicina esportiva"]],
-  [Brain, "Saúde mental", "Psicologia",
-    "Apoio psicológico humanizado para adultos e famílias. Da ansiedade ao manejo da dor crônica, integrando saúde mental ao cuidado físico.",
-    ["Terapia individual", "Manejo de ansiedade e estresse", "Suporte em dor crônica", "Saúde mental integrada"]],
   [Droplets, "Reabilitação", "Hidroterapia",
     "Reabilitação aquática em piscina aquecida, ideal para pós-operatório, dor crônica, terceira idade e atletas. Baixo impacto, alto resultado.",
     ["Piscina aquecida exclusiva", "Pós-operatório e dor crônica", "Reabilitação para a maturidade", "Acompanhamento individualizado"]],
-  [Hand, "Bem-estar", "Massoterapia",
-    "Terapias manuais para alívio de tensão, recuperação muscular e bem-estar. Massagem desportiva, relaxante e drenagem linfática.",
-    ["Massagem desportiva", "Drenagem linfática", "Massagem relaxante", "Liberação miofascial"]],
+  [Brain, "Saúde mental", "Psicologia",
+    "Apoio psicológico humanizado para adultos e famílias. Da ansiedade ao manejo da dor crônica, integrando saúde mental ao cuidado físico.",
+    ["Terapia individual", "Manejo de ansiedade e estresse", "Suporte em dor crônica", "Saúde mental integrada"]],
+  [BrainCog, "Saúde mental", "Psiquiatria",
+    "Atendimento médico em saúde mental para ansiedade, depressão, TDAH, burnout e transtornos do humor. Avaliação criteriosa e tratamento individualizado, integrado à psicologia.",
+    ["Ansiedade, depressão e burnout", "TDAH adulto", "Transtornos do humor", "Acompanhamento medicamentoso responsável"]],
+  [FlaskConical, "Diagnóstico", "Laboratório",
+    "Realizamos as coletas laboratoriais no próprio Instituto, com conforto e privacidade — a análise é feita por laboratórios parceiros de confiança. Resultados integrados ao seu acompanhamento clínico.",
+    ["Coleta no Instituto, com hora marcada", "Análise por laboratórios parceiros", "Resultados integrados ao prontuário", "Conveniência e privacidade"]],
 ];
 
 export default function Especialidades() {
