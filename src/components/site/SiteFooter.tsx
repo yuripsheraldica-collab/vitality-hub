@@ -12,6 +12,7 @@ export default function SiteFooter() {
             Centro multidisciplinar de saúde e bem-estar de alto padrão. 100% particular, com hora marcada e sem espera.
           </p>
           <p className="mt-4 text-xs text-white/30">R. João Kuhl Filho, 101 — Limeira, SP</p>
+          <p className="mt-2 text-xs text-white/30">Seg a Sex · 07h às 20h<br />Sábado · 08h às 12h</p>
         </div>
         <FooterCol title="O Instituto" links={[
           ["Nossa história", "/instituto"],
