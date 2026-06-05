@@ -11,6 +11,7 @@ import fachada from "@/assets/fachada.jpg";
 import recepcao from "@/assets/recepcao.jpg";
 import headerRecepcao from "@/assets/header-recepcao.jpg";
 import { WHATSAPP_LINK } from "@/lib/contact";
+import { Shield, Trophy } from "lucide-react";
 
 export default function Index() {
   return (
@@ -199,7 +200,7 @@ export default function Index() {
               Agende sua avaliação inicial e descubra o que um atendimento de verdade pode fazer por você. Com hora marcada, sem fila, sem pressa.
             </p>
             <div className="mt-8 space-y-3 text-sm text-muted-foreground">
-              {[[Calendar, "Segunda a sábado · horários flexíveis"],[Phone, "WhatsApp: (19) 99161-2513"],[ClipboardList, "Resposta em até 2 horas úteis"],[Users, "Atendimento exclusivamente particular"]].map(([I,t]) => {
+              {[[Calendar, "Seg a Sex 07h às 20h · Sáb 08h às 12h"],[Phone, "WhatsApp: (19) 99161-2513"],[ClipboardList, "Resposta em até 2 horas úteis"],[Users, "Atendimento exclusivamente particular"]].map(([I,t]) => {
                 const Ic = I as any;
                 return <div key={t as string} className="flex items-center gap-3"><Ic className="w-4 h-4 text-sage" strokeWidth={1.5} />{t as string}</div>;
               })}
