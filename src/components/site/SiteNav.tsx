@@ -6,13 +6,13 @@ import { WHATSAPP_LINK } from "@/lib/contact";
 
 const links = [
   { to: "/instituto", label: "Instituto" },
-  { to: "/equipe", label: "Equipe" },
   { to: "/especialidades", label: "Especialidades" },
-  { to: "/area-do-paciente", label: "Area do Paciente" },
+  { to: "/equipe", label: "Equipe" },
   { to: "/resultados", label: "Resultados" },
   { to: "/academico", label: "Acadêmico" },
   { to: "/news", label: "News" },
   { to: "/contato", label: "Contato" },
+  { to: "/area-do-paciente", label: "Área do Paciente" },
 ];
 
 export default function SiteNav({ solid = false }: { solid?: boolean }) {
