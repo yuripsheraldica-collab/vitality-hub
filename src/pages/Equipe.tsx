@@ -138,15 +138,15 @@ export default function Equipe() {
           </div>
           <div className="grid md:grid-cols-2 gap-10">
             {leaders.map(m => (
-              <article key={m.name} className="bg-white border border-border overflow-hidden flex flex-col sm:flex-row">
-                <div className="sm:w-[42%] aspect-[3/4] sm:aspect-auto bg-sage/10 flex items-center justify-center shrink-0 overflow-hidden">
+              <article key={m.name} className="bg-white border border-border overflow-hidden flex flex-col sm:flex-row items-stretch">
+                <div className="w-full sm:w-52 lg:w-60 aspect-[3/4] sm:aspect-[3/4] bg-sage/10 flex items-center justify-center shrink-0 overflow-hidden">
                   {m.photo ? (
                     <img src={m.photo} alt={m.name} className="w-full h-full object-cover" loading="lazy" />
                   ) : (
                     <span className="font-display text-6xl text-sage-light italic">{initialsOf(m.name)}</span>
                   )}
                 </div>
-                <div className="p-8 flex-1">
+                <div className="p-8 flex-1 flex flex-col justify-center">
                   <span className="block text-[10px] tracking-[0.3em] uppercase text-sage">{m.role}</span>
                   <h3 className="mt-3 font-display text-2xl text-navy leading-tight">{m.name}</h3>
                   {m.credentials && <p className="mt-1 text-xs text-muted-foreground">{m.credentials}</p>}
@@ -183,15 +183,15 @@ export default function Equipe() {
                 }`}
               >
                 {g.members.map(m => (
-                  <article key={m.name} className="bg-navy hover:bg-sage/5 transition-colors flex">
-                    <div className="w-[38%] shrink-0 bg-sage/10 border-r border-sage/15 flex items-center justify-center overflow-hidden">
+                <article key={m.name} className="bg-navy hover:bg-sage/5 transition-colors flex items-stretch min-h-[220px]">
+                    <div className="w-36 sm:w-40 lg:w-44 shrink-0 bg-sage/10 border-r border-sage/15 flex items-center justify-center overflow-hidden">
                       {m.photo ? (
-                        <img src={m.photo} alt={m.name} className="w-full h-full object-cover aspect-[3/4]" loading="lazy" />
+                        <img src={m.photo} alt={m.name} className="w-full h-full object-cover" loading="lazy" />
                       ) : (
                         <span className="font-display text-3xl text-sage-light italic">{initialsOf(m.name)}</span>
                       )}
                     </div>
-                    <div className="p-7 flex-1">
+                    <div className="p-7 flex-1 flex flex-col justify-center">
                       <span className="block text-[10px] tracking-[0.3em] uppercase text-sage">{m.role}</span>
                       <h3 className="mt-2 font-display text-xl text-white leading-tight">{m.name}</h3>
                       {m.credentials && <p className="mt-1 text-xs text-white/40">{m.credentials}</p>}
