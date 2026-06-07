@@ -1,7 +1,15 @@
 import Layout from "@/components/site/Layout";
 import PageHero from "@/components/site/PageHero";
 
-type Member = { name: string; role: string; credentials?: string; bio: string; featured?: boolean };
+import thaisPhoto from "@/assets/equipe/thais-rodrigues.jpeg.asset.json";
+import joaoPhoto from "@/assets/equipe/joao-gustavo.jpeg.asset.json";
+import isadoraPhoto from "@/assets/equipe/isadora-ledo.jpeg.asset.json";
+import jessikaPhoto from "@/assets/equipe/jessika-rodrigues.jpeg.asset.json";
+import marianaPhoto from "@/assets/equipe/mariana-benvenuto.jpeg.asset.json";
+import mariaFernandaPhoto from "@/assets/equipe/maria-fernanda.jpeg.asset.json";
+import dayanePhoto from "@/assets/equipe/dayane-cardoso.jpeg.asset.json";
+
+type Member = { name: string; role: string; credentials?: string; bio: string; featured?: boolean; photo?: string };
 type Group = { area: string; members: Member[] };
 
 const initialsOf = (name: string) =>
@@ -32,7 +40,7 @@ const groups: Group[] = [
   {
     area: "Nutrologia",
     members: [
-      { name: "Dra. Maria Fernanda", role: "Nutróloga", bio: "Atendimento voltado ao equilíbrio metabólico, prevenção de doenças, longevidade e promoção de hábitos saudáveis." },
+      { name: "Dra. Maria Fernanda", role: "Nutróloga", bio: "Atendimento voltado ao equilíbrio metabólico, prevenção de doenças, longevidade e promoção de hábitos saudáveis.", photo: mariaFernandaPhoto.url },
       { name: "Dra. Vitória Amorim", role: "Nutróloga", credentials: "CRM 250036-SP", bio: "Especialista em saúde metabólica, emagrecimento, longevidade e performance, desenvolvendo estratégias personalizadas para promover saúde e qualidade de vida." },
       { name: "Dra. Yasmim Aires", role: "Nutróloga", credentials: "CRM 243257-SP", bio: "Atua em emagrecimento, reposição hormonal e medicina do estilo de vida, auxiliando pacientes na transformação da saúde e da composição corporal." },
     ],
@@ -40,7 +48,7 @@ const groups: Group[] = [
   {
     area: "Ginecologia",
     members: [
-      { name: "Dra. Mariana Benvenuto", role: "Ginecologista", bio: "Atendimento integral à saúde da mulher, com foco em prevenção, acompanhamento ginecológico, saúde hormonal e qualidade de vida feminina." },
+      { name: "Dra. Mariana Benvenuto", role: "Ginecologista", bio: "Atendimento integral à saúde da mulher, com foco em prevenção, acompanhamento ginecológico, saúde hormonal e qualidade de vida feminina.", photo: marianaPhoto.url },
       { name: "Dra. Natalia Dalfré", role: "Ginecologista e Obstetra", bio: "Atuação focada em ginecologia geral, ginecologia integrativa e estética íntima, promovendo cuidado individualizado e bem-estar feminino em todas as fases da vida." },
     ],
   },
@@ -48,7 +56,7 @@ const groups: Group[] = [
     area: "Cardiologia",
     members: [
       { name: "Dr. Rafael Rosa", role: "Cardiologista", bio: "Atua na prevenção, diagnóstico e acompanhamento das doenças cardiovasculares, promovendo saúde, segurança e longevidade." },
-      { name: "Dr. João Gustavo", role: "Cardiologista", bio: "Especialista em cardiologia preventiva, com foco em avaliação cardiovascular integrada à saúde metabólica e à qualidade de vida." },
+      { name: "Dr. João Gustavo", role: "Cardiologista", bio: "Especialista em cardiologia preventiva, com foco em avaliação cardiovascular integrada à saúde metabólica e à qualidade de vida.", photo: joaoPhoto.url },
     ],
   },
   {
@@ -60,7 +68,7 @@ const groups: Group[] = [
   {
     area: "Psiquiatria",
     members: [
-      { name: "Dra. Isadora Ledo", role: "Psiquiatra", bio: "Atendimento voltado à saúde mental, auxiliando pacientes no tratamento de ansiedade, depressão, TDAH, burnout e transtornos do humor." },
+      { name: "Dra. Isadora Ledo", role: "Psiquiatra", bio: "Atendimento voltado à saúde mental, auxiliando pacientes no tratamento de ansiedade, depressão, TDAH, burnout e transtornos do humor.", photo: isadoraPhoto.url },
     ],
   },
   {
@@ -72,13 +80,13 @@ const groups: Group[] = [
   {
     area: "Pediatria",
     members: [
-      { name: "Dra. Jéssika Rodrigues", role: "Pediatra e Gastropediatra", bio: "Atua no acompanhamento do desenvolvimento infantil e no tratamento das principais condições gastrointestinais da infância." },
+      { name: "Dra. Jéssika Rodrigues", role: "Pediatra e Gastropediatra", bio: "Atua no acompanhamento do desenvolvimento infantil e no tratamento das principais condições gastrointestinais da infância.", photo: jessikaPhoto.url },
     ],
   },
   {
     area: "Movimento & Performance",
     members: [
-      { name: "Thaís Rodrigues", role: "Fisioterapia Esportiva · Biomecânica · Yoga", bio: "Especialista em fisioterapia esportiva, biomecânica da corrida e reabilitação funcional, com foco em performance e prevenção de lesões." },
+      { name: "Thaís Rodrigues", role: "Fisioterapia Esportiva · Biomecânica · Yoga", bio: "Especialista em fisioterapia esportiva, biomecânica da corrida e reabilitação funcional, com foco em performance e prevenção de lesões.", photo: thaisPhoto.url },
       { name: "Giovanni Souza", role: "Fisioterapeuta", bio: "Atendimento voltado à recuperação funcional, reabilitação musculoesquelética e melhora da qualidade de movimento." },
       { name: "Varley Maronezi", role: "Fisioterapeuta", bio: "Especialista em reabilitação ortopédica e funcional, auxiliando pacientes na recuperação e prevenção de lesões." },
       { name: "Matheus", role: "Personal Trainer", bio: "Atua no desenvolvimento de programas de treinamento personalizados voltados à saúde, condicionamento físico e performance." },
@@ -101,7 +109,7 @@ const groups: Group[] = [
   {
     area: "Estética",
     members: [
-      { name: "Dayane", role: "Esteticista", bio: "Especialista em cuidados estéticos faciais e corporais, promovendo bem-estar, autoestima e tratamentos personalizados." },
+      { name: "Dayane Cardoso", role: "Esteticista", bio: "Especialista em cuidados estéticos faciais e corporais, promovendo bem-estar, autoestima e tratamentos personalizados.", photo: dayanePhoto.url },
     ],
   },
   {
@@ -131,8 +139,12 @@ export default function Equipe() {
           <div className="grid md:grid-cols-2 gap-10">
             {leaders.map(m => (
               <article key={m.name} className="bg-white border border-border overflow-hidden flex flex-col sm:flex-row">
-                <div className="sm:w-[42%] aspect-[3/4] sm:aspect-auto bg-sage/10 flex items-center justify-center shrink-0">
-                  <span className="font-display text-6xl text-sage-light italic">{initialsOf(m.name)}</span>
+                <div className="sm:w-[42%] aspect-[3/4] sm:aspect-auto bg-sage/10 flex items-center justify-center shrink-0 overflow-hidden">
+                  {m.photo ? (
+                    <img src={m.photo} alt={m.name} className="w-full h-full object-cover" loading="lazy" />
+                  ) : (
+                    <span className="font-display text-6xl text-sage-light italic">{initialsOf(m.name)}</span>
+                  )}
                 </div>
                 <div className="p-8 flex-1">
                   <span className="block text-[10px] tracking-[0.3em] uppercase text-sage">{m.role}</span>
@@ -172,8 +184,12 @@ export default function Equipe() {
               >
                 {g.members.map(m => (
                   <article key={m.name} className="bg-navy hover:bg-sage/5 transition-colors flex">
-                    <div className="w-[38%] shrink-0 bg-sage/10 border-r border-sage/15 flex items-center justify-center">
-                      <span className="font-display text-3xl text-sage-light italic">{initialsOf(m.name)}</span>
+                    <div className="w-[38%] shrink-0 bg-sage/10 border-r border-sage/15 flex items-center justify-center overflow-hidden">
+                      {m.photo ? (
+                        <img src={m.photo} alt={m.name} className="w-full h-full object-cover aspect-[3/4]" loading="lazy" />
+                      ) : (
+                        <span className="font-display text-3xl text-sage-light italic">{initialsOf(m.name)}</span>
+                      )}
                     </div>
                     <div className="p-7 flex-1">
                       <span className="block text-[10px] tracking-[0.3em] uppercase text-sage">{m.role}</span>
