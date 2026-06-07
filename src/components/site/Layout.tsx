@@ -1,6 +1,7 @@
 import { ReactNode } from "react";
 import SiteNav from "./SiteNav";
 import SiteFooter from "./SiteFooter";
+import FloatingWhatsApp from "./FloatingWhatsApp";
 
 export default function Layout({ children, solidNav = false }: { children: ReactNode; solidNav?: boolean }) {
   return (
@@ -8,6 +9,7 @@ export default function Layout({ children, solidNav = false }: { children: React
       <SiteNav solid={solidNav} />
       <main className="flex-1">{children}</main>
       <SiteFooter />
+      <FloatingWhatsApp />
     </div>
   );
 }

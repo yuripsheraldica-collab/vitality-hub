@@ -68,7 +68,7 @@ export default function Especialidades() {
         subtitle="Mais de 15 áreas integradas em um único lugar — uma equipe que trata você como um todo, não em partes."
       />
       <section className="py-20 bg-cream">
-        <div className="container-x grid md:grid-cols-2 gap-px bg-border">
+        <div className="container-x grid md:grid-cols-2 [&>*]:border-l [&>*]:border-t [&>*]:border-border border-r border-b border-border">
           {items.map(([Icon, area, title, desc, list], i) => {
             const I = Icon;
             return (

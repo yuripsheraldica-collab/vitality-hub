@@ -174,7 +174,7 @@ export default function Equipe() {
                 </span>
               </header>
               <div
-                className={`grid gap-px bg-sage/10 ${
+                className={`grid [&>*]:border-l [&>*]:border-t [&>*]:border-sage/15 border-r border-b border-sage/15 ${
                   g.members.length === 1
                     ? "md:grid-cols-1"
                     : g.members.length === 2
