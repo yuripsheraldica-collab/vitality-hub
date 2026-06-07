@@ -49,7 +49,7 @@ export default function Index() {
 
       {/* NÚMEROS */}
       <section className="bg-navy text-white border-t border-sage/10 py-20">
-        <div className="container-x grid grid-cols-2 lg:grid-cols-4 gap-px bg-sage/10">
+        <div className="container-x grid grid-cols-2 lg:grid-cols-4 [&>*]:border-l [&>*]:border-t [&>*]:border-sage/15 border-r border-b border-sage/15">
           {[
             ["15+", "Especialidades integradas"],
             ["100%", "Atendimento particular"],
@@ -153,7 +153,7 @@ export default function Index() {
             <span className="eyebrow !justify-center !mx-auto">Nossos princípios</span>
             <h2 className="mt-5 section-heading">Cuidado guiado por <em>valores reais</em></h2>
           </div>
-          <div className="mt-16 grid md:grid-cols-2 lg:grid-cols-3 gap-px bg-border">
+          <div className="mt-16 grid md:grid-cols-2 lg:grid-cols-3 [&>*]:border-l [&>*]:border-t [&>*]:border-border border-r border-b border-border">
             {[
               [Target, "Propósito acima de protocolo", "Não seguimos fórmulas. Cada pessoa que chega aqui recebe atenção individualizada, porque corpos — e histórias — são únicos."],
               [Ear, "Escuta antes de diagnóstico", "O primeiro ato de cuidar é ouvir. Não interrompemos. Não cronometramos. Criamos um espaço seguro para você se abrir."],
@@ -203,7 +203,7 @@ export default function Index() {
             <h2 className="section-heading heading-light">Cuidado <em>integral</em></h2>
             <p className="max-w-sm text-white/45 text-sm leading-relaxed">Todas as especialidades integradas em um único lugar, com uma equipe que trata você como um todo.</p>
           </div>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-px bg-sage/10">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 [&>*]:border-l [&>*]:border-t [&>*]:border-sage/15 border-r border-b border-sage/15">
             {[
               [Scan, "Dermatologia", "Cuidado clínico e estético da pele, com diagnóstico preciso e protocolos personalizados."],
               [HeartPulse, "Vascular", "Avaliação e tratamento de doenças venosas e arteriais, da prevenção ao acompanhamento contínuo."],
