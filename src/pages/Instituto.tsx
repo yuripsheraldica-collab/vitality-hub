@@ -37,7 +37,7 @@ export default function Instituto() {
       <section className="py-24 bg-white">
         <div className="container-x">
           <h2 className="section-heading text-center">Nossa <em>linha do tempo</em></h2>
-          <div className="mt-16 grid md:grid-cols-4 gap-px bg-border">
+          <div className="mt-16 grid md:grid-cols-4 [&>*]:border-l [&>*]:border-t [&>*]:border-border border-r border-b border-border">
             {[["2018","Fundação","Abrimos as portas com a missão de redefinir o padrão de saúde em Limeira."],
               ["2020","Expansão multidisciplinar","Integração de fisioterapia, pilates e academia ao núcleo médico."],
               ["2022","Novo espaço","Inauguração das novas instalações — conforto e privacidade real."],
@@ -99,7 +99,7 @@ export default function Instituto() {
               <Gem className="w-5 h-5 text-sage" strokeWidth={1.5} />
               <h3 className="font-display text-2xl text-navy">Valores</h3>
             </div>
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-px bg-border">
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 [&>*]:border-l [&>*]:border-t [&>*]:border-border border-r border-b border-border">
               {valores.map(([t, d], i) => (
                 <div key={t} className="bg-white p-7">
                   <span className="font-display text-xs tracking-[0.2em] text-sage/60">{String(i + 1).padStart(2, "0")}</span>
