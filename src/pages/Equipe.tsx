@@ -40,8 +40,7 @@ const groups: Group[] = [
   {
     area: "Nutrologia",
     members: [
-      { name: "Dra. Maria Fernanda", role: "Nutróloga", bio: "Atendimento voltado ao equilíbrio metabólico, prevenção de doenças, longevidade e promoção de hábitos saudáveis." },
-      // photo set below
+      { name: "Dra. Maria Fernanda", role: "Nutróloga", bio: "Atendimento voltado ao equilíbrio metabólico, prevenção de doenças, longevidade e promoção de hábitos saudáveis.", photo: mariaFernandaPhoto.url },
       { name: "Dra. Vitória Amorim", role: "Nutróloga", credentials: "CRM 250036-SP", bio: "Especialista em saúde metabólica, emagrecimento, longevidade e performance, desenvolvendo estratégias personalizadas para promover saúde e qualidade de vida." },
       { name: "Dra. Yasmim Aires", role: "Nutróloga", credentials: "CRM 243257-SP", bio: "Atua em emagrecimento, reposição hormonal e medicina do estilo de vida, auxiliando pacientes na transformação da saúde e da composição corporal." },
     ],
