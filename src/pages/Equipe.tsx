@@ -139,8 +139,12 @@ export default function Equipe() {
           <div className="grid md:grid-cols-2 gap-10">
             {leaders.map(m => (
               <article key={m.name} className="bg-white border border-border overflow-hidden flex flex-col sm:flex-row">
-                <div className="sm:w-[42%] aspect-[3/4] sm:aspect-auto bg-sage/10 flex items-center justify-center shrink-0">
-                  <span className="font-display text-6xl text-sage-light italic">{initialsOf(m.name)}</span>
+                <div className="sm:w-[42%] aspect-[3/4] sm:aspect-auto bg-sage/10 flex items-center justify-center shrink-0 overflow-hidden">
+                  {m.photo ? (
+                    <img src={m.photo} alt={m.name} className="w-full h-full object-cover" loading="lazy" />
+                  ) : (
+                    <span className="font-display text-6xl text-sage-light italic">{initialsOf(m.name)}</span>
+                  )}
                 </div>
                 <div className="p-8 flex-1">
                   <span className="block text-[10px] tracking-[0.3em] uppercase text-sage">{m.role}</span>
@@ -180,8 +184,12 @@ export default function Equipe() {
               >
                 {g.members.map(m => (
                   <article key={m.name} className="bg-navy hover:bg-sage/5 transition-colors flex">
-                    <div className="w-[38%] shrink-0 bg-sage/10 border-r border-sage/15 flex items-center justify-center">
-                      <span className="font-display text-3xl text-sage-light italic">{initialsOf(m.name)}</span>
+                    <div className="w-[38%] shrink-0 bg-sage/10 border-r border-sage/15 flex items-center justify-center overflow-hidden">
+                      {m.photo ? (
+                        <img src={m.photo} alt={m.name} className="w-full h-full object-cover aspect-[3/4]" loading="lazy" />
+                      ) : (
+                        <span className="font-display text-3xl text-sage-light italic">{initialsOf(m.name)}</span>
+                      )}
                     </div>
                     <div className="p-7 flex-1">
                       <span className="block text-[10px] tracking-[0.3em] uppercase text-sage">{m.role}</span>
