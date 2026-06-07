@@ -11,7 +11,8 @@ import fachada from "@/assets/fachada.jpg";
 import recepcao from "@/assets/recepcao.jpg";
 import headerRecepcao from "@/assets/header-recepcao.jpg";
 import { WHATSAPP_LINK } from "@/lib/contact";
-import { Shield, Trophy } from "lucide-react";
+import corinthiansLogo from "@/assets/parceiros/corinthians.png.asset.json";
+import mandicLogo from "@/assets/parceiros/sao-leopoldo-mandic.png.asset.json";
 
 export default function Index() {
   return (
@@ -112,32 +113,32 @@ export default function Index() {
               O Instituto Evolução presta serviços médicos e de fisioterapia com equipe dedicada ao <strong className="text-white">Sport Club Corinthians Paulista</strong> e ao <strong className="text-white">Hospital São Leopoldo Mandic</strong> — referências nacionais que confiam no nosso método integrado de reabilitação e performance.
             </p>
           </div>
-          <div className="grid md:grid-cols-2 gap-px bg-sage/10">
-            <a href="https://pt.wikipedia.org/wiki/Sport_Club_Corinthians_Paulista" target="_blank" rel="noopener" className="bg-navy p-10 hover:bg-sage/5 transition-colors group">
+          <div className="grid md:grid-cols-2 gap-6">
+            <a href="https://pt.wikipedia.org/wiki/Sport_Club_Corinthians_Paulista" target="_blank" rel="noopener" className="bg-white p-10 hover:bg-white/95 transition-colors group border border-sage/10">
               <div className="flex items-center gap-5">
-                <div className="w-16 h-16 rounded-full border border-sage/30 flex items-center justify-center group-hover:bg-sage/10 transition-colors">
-                  <Trophy className="w-7 h-7 text-sage" strokeWidth={1.5} />
+                <div className="w-20 h-20 flex items-center justify-center shrink-0">
+                  <img src={corinthiansLogo.url} alt="S. C. Corinthians Paulista" className="w-full h-full object-contain" />
                 </div>
                 <div>
                   <span className="block text-[10px] tracking-[0.3em] uppercase text-sage">Esporte de elite</span>
-                  <h3 className="mt-1 font-display text-2xl text-white">S. C. Corinthians Paulista</h3>
+                  <h3 className="mt-1 font-display text-2xl text-navy">S. C. Corinthians Paulista</h3>
                 </div>
               </div>
-              <p className="mt-6 text-sm text-white/55 leading-relaxed font-light">
+              <p className="mt-6 text-sm text-navy/70 leading-relaxed font-light">
                 Equipe dedicada de fisioterapia esportiva e medicina do esporte a serviço de um dos maiores clubes do Brasil — reabilitação, prevenção de lesões e otimização de performance para atletas profissionais.
               </p>
             </a>
-            <a href="https://hospitalslmandic.com.br/" target="_blank" rel="noopener" className="bg-navy p-10 hover:bg-sage/5 transition-colors group">
+            <a href="https://hospitalslmandic.com.br/" target="_blank" rel="noopener" className="bg-white p-10 hover:bg-white/95 transition-colors group border border-sage/10">
               <div className="flex items-center gap-5">
-                <div className="w-16 h-16 rounded-full border border-sage/30 flex items-center justify-center group-hover:bg-sage/10 transition-colors">
-                  <Shield className="w-7 h-7 text-sage" strokeWidth={1.5} />
+                <div className="w-20 h-20 flex items-center justify-center shrink-0">
+                  <img src={mandicLogo.url} alt="Hospital São Leopoldo Mandic" className="w-full h-full object-contain" />
                 </div>
                 <div>
                   <span className="block text-[10px] tracking-[0.3em] uppercase text-sage">Saúde de referência</span>
-                  <h3 className="mt-1 font-display text-2xl text-white">Hospital São Leopoldo Mandic</h3>
+                  <h3 className="mt-1 font-display text-2xl text-navy">Hospital São Leopoldo Mandic</h3>
                 </div>
               </div>
-              <p className="mt-6 text-sm text-white/55 leading-relaxed font-light">
+              <p className="mt-6 text-sm text-navy/70 leading-relaxed font-light">
                 Serviços de fisioterapia hospitalar e reabilitação prestados em parceria com uma das instituições mais respeitadas do país — cuidado clínico integrado ao melhor da medicina hospitalar.
               </p>
             </a>
