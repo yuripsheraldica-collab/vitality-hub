@@ -294,7 +294,7 @@ function Exercicios() {
           <div key={e.nome} className="border border-border overflow-hidden bg-white">
             <div className="aspect-video bg-navy relative">
               {e.youtubeId ? (
-                <iframe src={`https://www.youtube.com/embed/${e.youtubeId}`} title={e.nome} className="w-full h-full" allowFullScreen />
+                <iframe src={`https://www.youtube.com/embed/${e.youtubeId}?mute=0`} title={e.nome} className="w-full h-full" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen />
               ) : (
                 <div className="w-full h-full flex flex-col items-center justify-center text-white/60 gap-2">
                   <PlayCircle className="w-12 h-12" strokeWidth={1} />
