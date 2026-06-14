@@ -88,10 +88,10 @@ export default function Resultados() {
                   <div className="relative aspect-[9/16] w-full max-w-[320px] bg-navy overflow-hidden border border-border rounded-xl shadow-lg">
                     {p.youtubeId ? (
                       <iframe
-                        src={`https://www.youtube.com/embed/${p.youtubeId}?loop=1&playlist=${p.youtubeId}`}
+                        src={`https://www.youtube.com/embed/${p.youtubeId}?loop=1&playlist=${p.youtubeId}&mute=0`}
                         title={p.title}
                         className="w-full h-full"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                         allowFullScreen
                       />
                     ) : (
