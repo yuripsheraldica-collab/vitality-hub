@@ -68,9 +68,9 @@ export default function Index() {
       <section className="py-20 md:py-24 bg-cream relative overflow-hidden">
         <div className="container-x grid lg:grid-cols-2 gap-16 items-center">
           <div className="relative">
-            <video
+        <video
               src="/video-institucional.mp4"
-              autoPlay muted loop playsInline
+              autoPlay loop playsInline
               className="w-full aspect-[4/5] object-cover shadow-[0_30px_80px_-20px_hsl(var(--navy)/0.4)]"
             />
             <div className="absolute -bottom-5 -right-5 w-32 h-32 border border-sage/30 -z-0" />
