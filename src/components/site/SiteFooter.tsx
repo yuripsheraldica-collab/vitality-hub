@@ -23,6 +23,7 @@ export default function SiteFooter() {
         <FooterCol title="Conhecimento" links={[
           ["Acadêmico", "/academico"],
           ["News", "/news"],
+          ["Intranet", "/intranet"],
         ]} />
         <FooterCol title="Contato" links={[
           ["Centro de Cuidados", "/centro-de-cuidados"],
