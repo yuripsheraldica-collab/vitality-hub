@@ -14,6 +14,7 @@ import News from "./pages/News.tsx";
 import NewsArticle from "./pages/NewsArticle.tsx";
 import CentroDeCuidados from "./pages/CentroDeCuidados.tsx";
 import Contato from "./pages/Contato.tsx";
+import Intranet from "./pages/Intranet.tsx";
 
 const queryClient = new QueryClient();
 
@@ -35,6 +36,7 @@ const App = () => (
           <Route path="/centro-de-cuidados" element={<CentroDeCuidados />} />
           <Route path="/area-do-paciente" element={<CentroDeCuidados />} />
           <Route path="/contato" element={<Contato />} />
+          <Route path="/intranet" element={<Intranet />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
