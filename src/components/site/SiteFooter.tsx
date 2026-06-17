@@ -33,7 +33,13 @@ export default function SiteFooter() {
       </div>
       <div className="container-x mt-14 pt-6 border-t border-white/10 flex flex-col md:flex-row items-center justify-between gap-4">
         <span className="text-[11px] tracking-wider text-white/30">© {new Date().getFullYear()} Instituto Evolução — Limeira, SP</span>
-        <div className="flex gap-3">
+        <div className="flex items-center gap-5">
+          <Link
+            to="/intranet"
+            className="text-[11px] tracking-[0.18em] uppercase text-white/40 hover:text-sage transition-colors"
+          >
+            Intranet
+          </Link>
           <a href="https://www.instagram.com/instituto.evolucao/" target="_blank" rel="noopener" className="w-9 h-9 border border-white/15 flex items-center justify-center hover:border-sage hover:text-sage transition-colors">
             <Instagram className="w-4 h-4" />
           </a>
