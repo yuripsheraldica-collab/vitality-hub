@@ -24,6 +24,7 @@ export default function SiteFooter() {
           ["Acadêmico", "/academico"],
           ["News", "/news"],
           ["Intranet", "/intranet"],
+          ["Central de Inteligência", "https://evolucao-os.lovable.app"],
         ]} />
         <FooterCol title="Contato" links={[
           ["Centro de Cuidados", "/centro-de-cuidados"],
