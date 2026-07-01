@@ -11,8 +11,8 @@ import fachada from "@/assets/fachada.jpg";
 import recepcao from "@/assets/recepcao.jpg";
 import headerRecepcao from "@/assets/header-recepcao.jpg";
 import { WHATSAPP_LINK } from "@/lib/contact";
-import corinthiansLogo from "@/assets/parceiros/corinthians.png.asset.json";
-import mandicLogo from "@/assets/parceiros/sao-leopoldo-mandic.png.asset.json";
+import corinthiansLogo from "@/assets/parceiros/corinthians.png";
+import mandicLogo from "@/assets/parceiros/sao-leopoldo-mandic.png";
 
 export default function Index() {
   return (
@@ -117,7 +117,7 @@ export default function Index() {
             <a href="https://pt.wikipedia.org/wiki/Sport_Club_Corinthians_Paulista" target="_blank" rel="noopener" className="bg-white p-10 hover:bg-white/95 transition-colors group border border-sage/10">
               <div className="flex items-center gap-5">
                 <div className="w-20 h-20 flex items-center justify-center shrink-0">
-                  <img src={corinthiansLogo.url} alt="S. C. Corinthians Paulista" className="w-full h-full object-contain" />
+                  <img src={corinthiansLogo} alt="S. C. Corinthians Paulista" className="w-full h-full object-contain" />
                 </div>
                 <div>
                   <span className="block text-[10px] tracking-[0.3em] uppercase text-sage">Esporte de elite</span>
@@ -131,7 +131,7 @@ export default function Index() {
             <a href="https://hospitalslmandic.com.br/" target="_blank" rel="noopener" className="bg-white p-10 hover:bg-white/95 transition-colors group border border-sage/10">
               <div className="flex items-center gap-5">
                 <div className="w-20 h-20 flex items-center justify-center shrink-0">
-                  <img src={mandicLogo.url} alt="Hospital São Leopoldo Mandic" className="w-full h-full object-contain" />
+                  <img src={mandicLogo} alt="Hospital São Leopoldo Mandic" className="w-full h-full object-contain" />
                 </div>
                 <div>
                   <span className="block text-[10px] tracking-[0.3em] uppercase text-sage">Saúde de referência</span>

@@ -1,13 +1,13 @@
 import Layout from "@/components/site/Layout";
 import PageHero from "@/components/site/PageHero";
 
-import thaisPhoto from "@/assets/equipe/thais-rodrigues.jpeg.asset.json";
-import joaoPhoto from "@/assets/equipe/joao-gustavo.jpeg.asset.json";
-import isadoraPhoto from "@/assets/equipe/isadora-ledo.jpeg.asset.json";
-import jessikaPhoto from "@/assets/equipe/jessika-rodrigues.jpeg.asset.json";
-import marianaPhoto from "@/assets/equipe/mariana-benvenuto.jpeg.asset.json";
-import mariaFernandaPhoto from "@/assets/equipe/maria-fernanda.jpeg.asset.json";
-import dayanePhoto from "@/assets/equipe/dayane-cardoso.jpeg.asset.json";
+import thaisPhoto from "@/assets/equipe/thais-rodrigues.jpeg";
+import joaoPhoto from "@/assets/equipe/joao-gustavo.jpeg";
+import isadoraPhoto from "@/assets/equipe/isadora-ledo.jpeg";
+import jessikaPhoto from "@/assets/equipe/jessika-rodrigues.jpeg";
+import marianaPhoto from "@/assets/equipe/mariana-benvenuto.jpeg";
+import mariaFernandaPhoto from "@/assets/equipe/maria-fernanda.jpeg";
+import dayanePhoto from "@/assets/equipe/dayane-cardoso.jpeg";
 
 type Member = { name: string; role: string; credentials?: string; bio: string; featured?: boolean; photo?: string };
 type Group = { area: string; members: Member[] };
@@ -40,7 +40,7 @@ const groups: Group[] = [
   {
     area: "Nutrologia",
     members: [
-      { name: "Dra. Maria Fernanda", role: "Nutróloga", bio: "Atendimento voltado ao equilíbrio metabólico, prevenção de doenças, longevidade e promoção de hábitos saudáveis.", photo: mariaFernandaPhoto.url },
+      { name: "Dra. Maria Fernanda", role: "Nutróloga", bio: "Atendimento voltado ao equilíbrio metabólico, prevenção de doenças, longevidade e promoção de hábitos saudáveis.", photo: mariaFernandaPhoto },
       { name: "Dra. Vitória Amorim", role: "Nutróloga", credentials: "CRM 250036-SP", bio: "Especialista em saúde metabólica, emagrecimento, longevidade e performance, desenvolvendo estratégias personalizadas para promover saúde e qualidade de vida." },
       { name: "Dra. Yasmim Aires", role: "Nutróloga", credentials: "CRM 243257-SP", bio: "Atua em emagrecimento, reposição hormonal e medicina do estilo de vida, auxiliando pacientes na transformação da saúde e da composição corporal." },
     ],
@@ -48,7 +48,7 @@ const groups: Group[] = [
   {
     area: "Ginecologia",
     members: [
-      { name: "Dra. Mariana Benvenuto", role: "Ginecologista", bio: "Atendimento integral à saúde da mulher, com foco em prevenção, acompanhamento ginecológico, saúde hormonal e qualidade de vida feminina.", photo: marianaPhoto.url },
+      { name: "Dra. Mariana Benvenuto", role: "Ginecologista", bio: "Atendimento integral à saúde da mulher, com foco em prevenção, acompanhamento ginecológico, saúde hormonal e qualidade de vida feminina.", photo: marianaPhoto },
       { name: "Dra. Natalia Dalfré", role: "Ginecologista e Obstetra", bio: "Atuação focada em ginecologia geral, ginecologia integrativa e estética íntima, promovendo cuidado individualizado e bem-estar feminino em todas as fases da vida." },
     ],
   },
@@ -56,7 +56,7 @@ const groups: Group[] = [
     area: "Cardiologia",
     members: [
       { name: "Dr. Rafael Rosa", role: "Cardiologista", bio: "Atua na prevenção, diagnóstico e acompanhamento das doenças cardiovasculares, promovendo saúde, segurança e longevidade." },
-      { name: "Dr. João Gustavo", role: "Cardiologista", bio: "Especialista em cardiologia preventiva, com foco em avaliação cardiovascular integrada à saúde metabólica e à qualidade de vida.", photo: joaoPhoto.url },
+      { name: "Dr. João Gustavo", role: "Cardiologista", bio: "Especialista em cardiologia preventiva, com foco em avaliação cardiovascular integrada à saúde metabólica e à qualidade de vida.", photo: joaoPhoto },
     ],
   },
   {
@@ -68,7 +68,7 @@ const groups: Group[] = [
   {
     area: "Psiquiatria",
     members: [
-      { name: "Dra. Isadora Ledo", role: "Psiquiatra", bio: "Atendimento voltado à saúde mental, auxiliando pacientes no tratamento de ansiedade, depressão, TDAH, burnout e transtornos do humor.", photo: isadoraPhoto.url },
+      { name: "Dra. Isadora Ledo", role: "Psiquiatra", bio: "Atendimento voltado à saúde mental, auxiliando pacientes no tratamento de ansiedade, depressão, TDAH, burnout e transtornos do humor.", photo: isadoraPhoto },
     ],
   },
   {
@@ -80,13 +80,13 @@ const groups: Group[] = [
   {
     area: "Pediatria",
     members: [
-      { name: "Dra. Jéssika Rodrigues", role: "Pediatra e Gastropediatra", bio: "Atua no acompanhamento do desenvolvimento infantil e no tratamento das principais condições gastrointestinais da infância.", photo: jessikaPhoto.url },
+      { name: "Dra. Jéssika Rodrigues", role: "Pediatra e Gastropediatra", bio: "Atua no acompanhamento do desenvolvimento infantil e no tratamento das principais condições gastrointestinais da infância.", photo: jessikaPhoto },
     ],
   },
   {
     area: "Movimento & Performance",
     members: [
-      { name: "Thaís Rodrigues", role: "Fisioterapia Esportiva · Biomecânica · Yoga", bio: "Especialista em fisioterapia esportiva, biomecânica da corrida e reabilitação funcional, com foco em performance e prevenção de lesões.", photo: thaisPhoto.url },
+      { name: "Thaís Rodrigues", role: "Fisioterapia Esportiva · Biomecânica · Yoga", bio: "Especialista em fisioterapia esportiva, biomecânica da corrida e reabilitação funcional, com foco em performance e prevenção de lesões.", photo: thaisPhoto },
       { name: "Giovanni Souza", role: "Fisioterapeuta", bio: "Atendimento voltado à recuperação funcional, reabilitação musculoesquelética e melhora da qualidade de movimento." },
       { name: "Varley Maronezi", role: "Fisioterapeuta", bio: "Especialista em reabilitação ortopédica e funcional, auxiliando pacientes na recuperação e prevenção de lesões." },
       { name: "Matheus", role: "Personal Trainer", bio: "Atua no desenvolvimento de programas de treinamento personalizados voltados à saúde, condicionamento físico e performance." },
@@ -109,7 +109,7 @@ const groups: Group[] = [
   {
     area: "Estética",
     members: [
-      { name: "Dayane Cardoso", role: "Esteticista", bio: "Especialista em cuidados estéticos faciais e corporais, promovendo bem-estar, autoestima e tratamentos personalizados.", photo: dayanePhoto.url },
+      { name: "Dayane Cardoso", role: "Esteticista", bio: "Especialista em cuidados estéticos faciais e corporais, promovendo bem-estar, autoestima e tratamentos personalizados.", photo: dayanePhoto },
     ],
   },
   {
